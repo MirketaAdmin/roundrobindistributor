@@ -11,6 +11,7 @@ React 19 + Vite 8 + React Router 7. Plain CSS with design tokens. The design ref
 | `npm run preview` | Serve the production build |
 | `npm run lint` | oxlint |
 | `npm run qa [baseUrl]` | Playwright functional checks against a running server (default `http://localhost:5191`) |
+| `npm run qa:audit [baseUrl]` | Interaction audit: sticky header, CTA targets, hover states, reduced motion, history, layout shift, 9 widths × 7 pages. Run it against `npm run build && npx vite preview` (many back-to-back loads exhaust Chromium's request pool on the unbundled dev server) |
 | `node scripts/capture.mjs <url> <out.png> [w] [h] [--full] [--click=sel]` | Screenshot for visual QA |
 | `node scripts/capture-sections.mjs <url> <out.png> [w]` | Full-page screenshot plus per-section bounding boxes |
 | `python -I scripts/extract-png-assets.py <homepage.png>` | Re-creates the Home raster assets cropped from the PNG design reference |
@@ -19,6 +20,7 @@ React 19 + Vite 8 + React Router 7. Plain CSS with design tokens. The design ref
 | `python -I scripts/extract-insights-assets.py <insights.png>` | Re-creates the Insights glyphs (`src/assets/insights/`) |
 | `python -I scripts/extract-article-assets.py <article.png>` | Re-creates the article images and glyphs (`src/assets/article/`) |
 | `python -I scripts/extract-legal-assets.py <legal.png>` | Re-creates the Privacy Policy & T&C glyphs (`src/assets/legal/`) |
+| `python -I scripts/extract-support-assets.py <support.png>` | Re-creates the Support glyphs (`src/assets/support/`) |
 
 ## Structure
 
@@ -35,6 +37,7 @@ src/
                              inquiry form, sandbox card); shared Faq. Unknown slugs render the 404
     Legal/                   `/privacy-policy-and-terms` — LegalHero (meta strip, trust cards), LegalDocument
                              (searchable Document Index + Privacy / Terms cards); shared ContactSection
+    Support/                 `/support` — SupportHero (category cards), SupportTopics (accordions); shared ContactSection
     NotFound/                404 (noindex)
   components/                shared UI, used by more than one section or page
     Header, Footer, Brand    site chrome and logo lockup
@@ -54,9 +57,8 @@ src/
     SEO                      per-page <head> management
   styles/                    variables.css (design tokens), global.css (reset, container, base)
   data/                      page copy and navigation (all text lives here, not in components)
-  config/links.js            external URLs, section ids, form endpoint (null until the client supplies them)
-  services/inquiryService.js inquiry-form submission seam (transport pending client decision)
-  utils/                     scroll.js, validation.js
+  config/links.js            external URLs (null until supplied), section ids, WEB_TO_LEAD form settings
+  utils/                     scroll.js, validation.js, recaptcha.js (reCAPTCHA v2 loader for the inquiry form)
   assets/                    logos/, images/, icons/
 scripts/                     QA capture, functional tests, asset extraction
 qa/                          screenshots and comparison output
@@ -71,4 +73,20 @@ qa/                          screenshots and comparison output
 
 ### Persistence
 
-No feature in the design needs a database: the site is static marketing content, and the inquiry form's destination is still pending the client's decision. When that is decided, implement it in `services/inquiryService.js`. A database belongs there, or behind an API, only if the chosen integration needs one.
+No feature in the design needs a database: the site is static marketing content.
+
+### Inquiry form → Salesforce Web-to-Lead
+
+Every inquiry form is a plain HTML `<form method="POST">` that posts straight to Salesforce Web-to-Lead (settings in `WEB_TO_LEAD`, `src/config/links.js`; field names in `CONTACT.fields`, `src/data/home.js`). Salesforce redirects to `retURL` after a successful post.
+
+| Form field | Web-to-Lead field |
+|---|---|
+| First Name / Last Name | `first_name` (40) / `last_name` (80) |
+| Work Email | `email` (80) |
+| Phone | `mobile` (40) |
+| Company | `company` (40) |
+| Anything that will help us prepare | `description` |
+| hidden | `oid`, `retURL`, `lead_source=Web`, `captcha_settings` (timestamp refreshed every 500ms), `g-recaptcha-response` |
+| second "Company" (Home/Contact) and "Salesforce Edition" (article sidebar) | not submitted — no Web-to-Lead field yet |
+
+Script only adds inline validation (the POST is blocked while a field is invalid or the reCAPTCHA is unticked) and renders the reCAPTCHA v2 checkbox (`utils/recaptcha.js`). The 304×78 widget is not in the Figma frames; it sits between the message field and the submit row and makes each form card 94px taller.

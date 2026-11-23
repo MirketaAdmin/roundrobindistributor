@@ -1,8 +1,15 @@
-/* Measured on the 1280px homepage frame: 101px bar, logo 74×61 at x56, nav gap 40px. */
+/* Measured on the 1280px homepage frame: 101px bar, logo 74×61 at x56, nav gap 40px.
+   Sticky: stays in the flow (no layout shift); a hairline shadow appears only once content scrolls under it. */
 .site-header {
-  position: relative;
-  z-index: 20;
+  position: sticky;
+  top: 0;
+  z-index: 100;
   background: var(--rrd-white);
+  transition: box-shadow 0.2s ease;
+}
+
+.site-header.is-scrolled {
+  box-shadow: 0 1px 0 rgba(7, 28, 54, 0.06), 0 4px 12px rgba(7, 28, 54, 0.05);
 }
 
 .site-header__inner {
@@ -92,6 +99,10 @@
     align-items: stretch;
     gap: 16px;
     margin: 0;
+    max-height: calc(100vh - var(--header-height));
+    max-height: calc(100dvh - var(--header-height));
+    overflow-y: auto;
+    overscroll-behavior: contain;
     padding: 8px var(--container-gutter) 24px;
     background: var(--rrd-white);
     border-top: 1px solid var(--rrd-border);

@@ -1,6 +1,6 @@
 import Button from '../../../../components/Button/Button.jsx';
 import SectionHeading from '../../../../components/SectionHeading/SectionHeading.jsx';
-import { SECTION_IDS, sectionHref } from '../../../../config/links.js';
+import { EXTERNAL_LINKS, SECTION_IDS, sectionHref } from '../../../../config/links.js';
 import { PRICING } from '../../../../data/home.js';
 import './Pricing.css';
 
@@ -47,8 +47,8 @@ export default function Pricing() {
         </ul>
 
         <div className="pricing__actions">
-          {/* AWAITING CONFIRMATION: no dedicated pricing page yet — returns to this section */}
-          <Button to={sectionHref('pricing')} size="lg">
+          {/* Destination not supplied yet (it used to scroll to this same section) — disabled until set */}
+          <Button href={EXTERNAL_LINKS.pricingDetails} size="lg">
             {PRICING.primaryCta}
           </Button>
           <Button to={sectionHref('contact')} size="lg" variant="white" className="pricing__talk">

@@ -8,7 +8,8 @@
     "build": "vite build",
     "lint": "oxlint",
     "preview": "vite preview",
-    "qa": "node scripts/qa-functional.mjs"
+    "qa": "node scripts/qa-functional.mjs",
+    "qa:audit": "node scripts/qa-audit.mjs"
   },
   "dependencies": {
     "lucide-react": "1.77.0",

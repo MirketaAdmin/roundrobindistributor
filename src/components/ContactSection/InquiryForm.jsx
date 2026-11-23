@@ -1,45 +1,102 @@
-import { useId, useRef, useState } from 'react';
+import { useEffect, useId, useRef, useState } from 'react';
 import Button from '../Button/Button.jsx';
 import Icon from '../Icon/Icon.jsx';
+import { WEB_TO_LEAD } from '../../config/links.js';
 import { CONTACT } from '../../data/home.js';
-import { submitInquiry } from '../../services/inquiryService.js';
+import { loadRecaptcha } from '../../utils/recaptcha.js';
 import { validateFields } from '../../utils/validation.js';
 import './InquiryForm.css';
 
 const emptyValues = (fields) => Object.fromEntries([...fields, CONTACT.message].map((f) => [f.name, '']));
+const CAPTCHA_MESSAGE = 'Please confirm you are not a robot.';
 
-/** Inquiry form UI (Home, Contact Us, article sidebar). `fields` overrides the six drawn input fields. */
+/**
+ * Inquiry form (Home, About, Contact Us, Legal, Support, article sidebar), styled as in the Figma frames.
+ * It is a plain HTML form that POSTs straight to Salesforce Web-to-Lead (WEB_TO_LEAD in config/links.js);
+ * script only adds inline validation, the reCAPTCHA widget and the captcha timestamp Salesforce expects.
+ * `fields` overrides the six drawn input fields; a field with `submit: false` has no Web-to-Lead mapping.
+ */
 export default function InquiryForm({ fields = CONTACT.fields, className = '' }) {
   const uid = useId();
-  const formRef = useRef(null);
+  const captchaSettingsRef = useRef(null);
+  const captchaRef = useRef(null);
+  const widgetRef = useRef(null);
   const [values, setValues] = useState(() => emptyValues(fields));
   const [errors, setErrors] = useState({});
-  const [status, setStatus] = useState('');
+  const [captchaError, setCaptchaError] = useState('');
+
+  const fieldId = (name) => `${uid}-${name}`;
+  const captchaResponse = () =>
+    widgetRef.current !== null && window.grecaptcha ? window.grecaptcha.getResponse(widgetRef.current) : null;
+
+  // Render this form's reCAPTCHA widget (explicit mode: forms mount after route changes).
+  useEffect(() => {
+    let cancelled = false;
+    loadRecaptcha()
+      .then((grecaptcha) => {
+        if (cancelled || !captchaRef.current || captchaRef.current.childElementCount) return;
+        widgetRef.current = grecaptcha.render(captchaRef.current, {
+          sitekey: WEB_TO_LEAD.recaptchaSiteKey,
+          callback: () => setCaptchaError(''),
+        });
+      })
+      .catch(() => {
+        // Script blocked or offline: the org's captcha_settings use fallback, so the form still posts.
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
+  // Salesforce's snippet: keep `ts` in captcha_settings fresh until the captcha is answered.
+  // The value is written here, not through React props: React re-applies `defaultValue` on every
+  // render, which for a hidden input would wipe the timestamp.
+  useEffect(() => {
+    const stamp = () => {
+      const input = captchaSettingsRef.current;
+      if (!input || captchaResponse()) return;
+      input.value = JSON.stringify({ ...WEB_TO_LEAD.captchaSettings, ts: JSON.stringify(Date.now()) });
+    };
+    stamp();
+    const timer = setInterval(stamp, 500);
+    return () => clearInterval(timer);
+  }, []);
 
   const onChange = (event) => {
-    const { name, value } = event.target;
-    setValues((prev) => ({ ...prev, [name]: value }));
-    if (errors[name]) setErrors((prev) => ({ ...prev, [name]: undefined }));
+    const { field } = event.target.dataset;
+    const { value } = event.target;
+    setValues((prev) => ({ ...prev, [field]: value }));
+    if (errors[field]) setErrors((prev) => ({ ...prev, [field]: undefined }));
   };
 
-  const onSubmit = async (event) => {
-    event.preventDefault();
+  // Valid → let the browser submit the HTML form to Salesforce; invalid → stay and show errors.
+  const onSubmit = (event) => {
     const nextErrors = validateFields(fields, values);
     setErrors(nextErrors);
     const firstInvalid = Object.keys(nextErrors)[0];
-    if (firstInvalid) {
-      setStatus('');
-      formRef.current.elements[firstInvalid]?.focus();
-      return;
-    }
-    const result = await submitInquiry(values);
-    if (result.status === 'not-configured') {
-      setStatus('Your details are valid. Online submission is not connected yet.');
+    const response = captchaResponse();
+    const captchaMissing = response !== null && !response;
+    setCaptchaError(captchaMissing ? CAPTCHA_MESSAGE : '');
+    if (firstInvalid || captchaMissing) {
+      event.preventDefault();
+      if (firstInvalid) document.getElementById(fieldId(firstInvalid))?.focus();
     }
   };
 
   return (
-    <form ref={formRef} className={`inquiry ${className}`.trim()} noValidate onSubmit={onSubmit} aria-describedby={`${uid}-notice`}>
+    <form
+      className={`inquiry ${className}`.trim()}
+      action={WEB_TO_LEAD.action}
+      method="POST"
+      noValidate
+      onSubmit={onSubmit}
+      aria-describedby={`${uid}-notice`}
+    >
+      <input ref={captchaSettingsRef} type="hidden" name="captcha_settings" />
+      <input type="hidden" name="oid" value={WEB_TO_LEAD.oid} />
+      <input type="hidden" name="retURL" value={WEB_TO_LEAD.retURL} />
+      <input type="hidden" name="lead_source" value={WEB_TO_LEAD.leadSource} />
+
       <div className="inquiry__notice" id={`${uid}-notice`}>
         <span className="inquiry__notice-icon">
           <Icon name="Zap" className="inquiry__notice-glyph" />
@@ -52,7 +109,7 @@ export default function InquiryForm({ fields = CONTACT.fields, className = '' })
 
       <div className="inquiry__grid">
         {fields.map((field) => {
-          const id = `${uid}-${field.name}`;
+          const id = fieldId(field.name);
           const error = errors[field.name];
           return (
             <div key={field.name} className={`inquiry__field${error ? ' has-error' : ''}`}>
@@ -62,10 +119,12 @@ export default function InquiryForm({ fields = CONTACT.fields, className = '' })
               </label>
               <input
                 id={id}
-                name={field.name}
+                name={field.submit === false ? undefined : field.name}
+                data-field={field.name}
                 type={field.type}
                 autoComplete={field.autoComplete}
                 placeholder={field.placeholder}
+                maxLength={field.maxLength}
                 required={field.required}
                 aria-invalid={Boolean(error)}
                 aria-describedby={error ? `${id}-error` : undefined}
@@ -83,18 +142,28 @@ export default function InquiryForm({ fields = CONTACT.fields, className = '' })
         })}
 
         <div className="inquiry__field inquiry__field--full">
-          <label htmlFor={`${uid}-${CONTACT.message.name}`} className="inquiry__label">
+          <label htmlFor={fieldId(CONTACT.message.name)} className="inquiry__label">
             {CONTACT.message.label}
           </label>
           <textarea
-            id={`${uid}-${CONTACT.message.name}`}
+            id={fieldId(CONTACT.message.name)}
             name={CONTACT.message.name}
+            data-field={CONTACT.message.name}
             placeholder={CONTACT.message.placeholder}
             value={values[CONTACT.message.name]}
             onChange={onChange}
             className="inquiry__input inquiry__textarea"
           />
         </div>
+      </div>
+
+      <div className="inquiry__captcha">
+        <div ref={captchaRef} />
+        {captchaError && (
+          <p className="inquiry__error" role="alert">
+            {captchaError}
+          </p>
+        )}
       </div>
 
       <div className="inquiry__footer">
@@ -111,10 +180,6 @@ export default function InquiryForm({ fields = CONTACT.fields, className = '' })
           {CONTACT.submit}
         </Button>
       </div>
-
-      <p className="inquiry__status" role="status" aria-live="polite">
-        {status}
-      </p>
     </form>
   );
 }

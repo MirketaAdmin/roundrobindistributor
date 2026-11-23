@@ -1,0 +1,133 @@
+/*
+  Shared interaction layer — subtle, B2B.
+  - Hover only changes colour, border or shadow (never size or position of the box), 150–250ms.
+  - Effects live under (hover: hover) so touch devices never depend on, or get stuck in, a hover state.
+  - Disabled destinations (aria-disabled, URL not supplied yet) keep their designed look and never react.
+  - prefers-reduced-motion is handled globally in global.css (transitions off).
+*/
+
+/* ---------- Buttons ---------- */
+.btn {
+  transition: background-color var(--ease-ui), border-color var(--ease-ui), color var(--ease-ui), box-shadow var(--ease-ui);
+}
+
+.btn > svg:last-child:not(:first-child),
+.btn > img:last-child:not(:first-child) {
+  transition: transform var(--ease-ui);
+}
+
+/* Pending (no URL yet): cancel each variant's hover */
+.btn--primary.is-pending:hover { background: var(--rrd-primary); }
+.btn--secondary.is-pending:hover { box-shadow: 0 0 0 1px rgba(18, 111, 186, 0.3); }
+.btn--white.is-pending:hover { background: var(--rrd-white); }
+.btn--outline-light.is-pending:hover { background: transparent; }
+
+.btn:active:not(.is-pending) {
+  filter: brightness(0.97);
+}
+
+/* ---------- Cards and inputs ---------- */
+.article-card__inner,
+.pricing__plan,
+.support-card,
+.ratings__video,
+.latest-featured {
+  transition: box-shadow var(--ease-ui), border-color var(--ease-ui);
+}
+
+.inquiry__input {
+  transition: border-color var(--ease-ui), box-shadow var(--ease-ui);
+}
+
+/* ---------- Text links with a trailing arrow ---------- */
+.insights__all,
+a.article-card__read,
+a.comparison__link,
+a.team__explore,
+.latest__all,
+.support-card__link {
+  transition: color var(--ease-ui);
+}
+
+.insights__all-icon,
+.article-card__read-icon,
+.comparison__link-icon,
+.team__explore-icon,
+.support-card__arrow,
+.latest__all img {
+  transition: transform var(--ease-ui);
+}
+
+/* ---------- Accordions ---------- */
+.faq__question-text,
+.support-q__trigger > span {
+  transition: color var(--ease-ui);
+}
+
+@media (hover: hover) {
+  /* Small end-icon nudge on active buttons (arrows, send) */
+  .btn:not(.is-pending):hover > svg:last-child:not(:first-child),
+  .btn:not(.is-pending):hover > img:last-child:not(:first-child) {
+    transform: translateX(2px);
+  }
+
+  /* Cards: minimal elevation only — none of these cards is itself a link */
+  .article-card__inner:hover,
+  .support-card:hover,
+  .ratings__video:hover,
+  .latest-featured:hover {
+    box-shadow: 0 6px 18px rgba(7, 28, 54, 0.08);
+  }
+
+  .pricing__plan:not(.pricing__plan--featured):hover {
+    border-color: var(--rrd-sky);
+    box-shadow: 0 6px 18px rgba(7, 28, 54, 0.07);
+  }
+
+  .pricing__plan--featured:hover {
+    box-shadow: 0 10px 28px rgba(18, 111, 186, 0.16);
+  }
+
+  /* Text links */
+  .insights__all:hover,
+  a.article-card__read:hover,
+  a.comparison__link:hover,
+  a.team__explore:hover,
+  .latest__all:hover,
+  .support-card__link:hover {
+    color: var(--rrd-primary-pressed);
+  }
+
+  .insights__all:hover .insights__all-icon,
+  a.article-card__read:hover .article-card__read-icon,
+  a.comparison__link:hover .comparison__link-icon,
+  a.team__explore:hover .team__explore-icon,
+  .support-card__link:hover .support-card__arrow,
+  .latest__all:hover img {
+    transform: translateX(2px);
+  }
+
+  a.latest-featured__link:hover,
+  a.latest-item__title:hover {
+    color: var(--rrd-primary-pressed);
+  }
+
+  /* Accordions with an answer */
+  .faq__trigger:not([aria-disabled='true']):hover .faq__question-text,
+  .support-q__trigger:not([aria-disabled='true']):hover > span {
+    color: var(--rrd-primary-pressed);
+  }
+
+  /* Inputs */
+  .inquiry__input:hover:not(:focus) {
+    border-color: var(--rrd-border);
+  }
+
+  .brand:hover .brand__title {
+    color: var(--rrd-primary-pressed);
+  }
+}
+
+.brand__title {
+  transition: color var(--ease-ui);
+}

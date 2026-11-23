@@ -39,10 +39,11 @@ console.log(`saved ${out}`);
 async function loadAllImages(page) {
   await page.evaluate(async () => {
     for (let y = 0; y < document.body.scrollHeight; y += 600) {
-      window.scrollTo(0, y);
+      window.scrollTo({ top: y, behavior: "instant" });
       await new Promise((r) => setTimeout(r, 40));
     }
     await Promise.all([...document.images].map((img) => (img.complete ? null : new Promise((r) => { img.onload = img.onerror = r; }))));
-    window.scrollTo(0, 0);
+    window.scrollTo({ top: 0, behavior: "instant" }); // instant: html has smooth scrolling + a sticky header
+    await new Promise((r) => setTimeout(r, 300)); // let the header shadow transition settle
   });
 }

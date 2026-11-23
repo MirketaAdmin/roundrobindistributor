@@ -84,6 +84,14 @@ const settle = (pg) =>
       }),
   );
 
+/* Anchor targets must land just below the sticky header (plus the element's own scroll-margin).
+   Returns the offset in px from that line: 0 = exact. */
+const landed = (page, sel) => page.$eval(sel, (el) => {
+  const header = document.querySelector('.site-header').getBoundingClientRect().bottom;
+  const margin = parseFloat(getComputedStyle(el).scrollMarginTop) || 0;
+  return Math.round(el.getBoundingClientRect().top - header - margin);
+});
+
 // Full homepage
 const h = await b.newPage({ viewport: { width: 1280, height: 900 } });
 h.on('console', (msg) => msg.type() === 'error' && errors.push(msg.text()));
@@ -103,15 +111,15 @@ ok('no href="#" or empty hrefs anywhere', await h.$$eval('a', (as) => as.every((
 for (const [label, id] of [['Features', 'features'], ['Pricing', 'pricing']]) {
   await h.click(`.site-header__link >> text=${label}`);
   await settle(h);
-  const top = await h.$eval(`#${id}`, (el) => Math.round(el.getBoundingClientRect().top));
-  ok(`nav "${label}" scrolls to #${id}`, Math.abs(top) <= 2, `top=${top}`);
+  const off = await landed(h, `#${id}`);
+  ok(`nav "${label}" scrolls to #${id} (below sticky header)`, Math.abs(off) <= 2, `offset=${off}`);
 }
 await h.click('.governance__band-cta');
 await settle(h);
-ok('"See How RRD Works" scrolls to #how-it-works', Math.abs(await h.$eval('#how-it-works', (el) => el.getBoundingClientRect().top)) <= 2);
+ok('"See How RRD Works" scrolls to #how-it-works', Math.abs(await landed(h, '#how-it-works')) <= 2);
 await h.click('.site-footer >> text=RRD vs. Native Tools');
 await settle(h);
-ok('footer "RRD vs. Native Tools" scrolls to #comparison', Math.abs(await h.$eval('#comparison', (el) => el.getBoundingClientRect().top)) <= 2);
+ok('footer "RRD vs. Native Tools" scrolls to #comparison', Math.abs(await landed(h, '#comparison')) <= 2);
 
 const pending = await h.$$eval('.is-pending', (els) => els.map((el) => ({ t: el.textContent.trim(), href: el.getAttribute('href'), d: el.getAttribute('aria-disabled') })));
 ok(`unconfigured destinations marked unavailable (${pending.length})`, pending.length > 0 && pending.every((p) => p.href === null && p.d === 'true'), pending.map((p) => p.t).join(' | '));
@@ -121,19 +129,32 @@ ok('video dialog closed by default', !(await h.$eval('dialog.video-modal', (d) =
 
 // Inquiry form
 await h.click('.inquiry__submit');
-const invalid = await h.$$eval('.inquiry [aria-invalid="true"]', (els) => els.map((el) => el.name));
+const invalid = await h.$$eval('.inquiry [aria-invalid="true"]', (els) => els.map((el) => el.dataset.field));
 ok('empty submit flags all 6 required fields', invalid.length === 6, invalid.join(','));
-ok('focus moves to first invalid field', (await h.evaluate(() => document.activeElement.name)) === 'firstName');
-ok('error messages rendered', (await h.$$('.inquiry__error')).length === 6);
-const fill = { firstName: 'Jane', lastName: 'Doe', email: 'not-an-email', phone: '+1 (555) 000-0000', company: 'Acme', companySecondary: 'Acme' };
-for (const [name, value] of Object.entries(fill)) await h.fill(`.inquiry [name="${name}"]`, value);
+ok('focus moves to first invalid field', (await h.evaluate(() => document.activeElement.dataset.field)) === 'first_name');
+ok('error messages rendered', (await h.$$('.inquiry__field .inquiry__error')).length === 6);
+const fill = { first_name: 'Jane', last_name: 'Doe', email: 'not-an-email', mobile: '+1 (555) 000-0000', company: 'Acme', company_secondary: 'Acme' };
+for (const [field, value] of Object.entries(fill)) await h.fill(`.inquiry [data-field="${field}"]`, value);
 await h.click('.inquiry__submit');
-ok('invalid email rejected', (await h.$$eval('.inquiry [aria-invalid="true"]', (els) => els.map((el) => el.name))).join() === 'email');
-await h.fill('.inquiry [name="email"]', 'jane.doe@company.com');
-await h.fill('.inquiry [name="message"]', 'Team of 20 reps');
+ok('invalid email rejected', (await h.$$eval('.inquiry [aria-invalid="true"]', (els) => els.map((el) => el.dataset.field))).join() === 'email');
+await h.fill('.inquiry [data-field="email"]', 'jane.doe@company.com');
+await h.fill('.inquiry [data-field="description"]', 'Team of 20 reps');
+ok('form posts to Salesforce Web-to-Lead', (await h.getAttribute('form.inquiry', 'action')).startsWith('https://webto.salesforce.com/servlet/servlet.WebToLead')
+  && (await h.getAttribute('form.inquiry', 'method')).toUpperCase() === 'POST');
+const posted = await h.$$eval('form.inquiry [name]', (els) => els.map((el) => el.name).join(','));
+ok('Web-to-Lead field names + hidden fields', posted.startsWith('captcha_settings,oid,retURL,lead_source,first_name,last_name,email,mobile,company,description'), posted);
+ok('hidden values match the Salesforce snippet', (await h.getAttribute('form.inquiry [name=oid]', 'value')) === '00Dd0000000hivg'
+  && (await h.getAttribute('form.inquiry [name=lead_source]', 'value')) === 'Web'
+  && JSON.parse(await h.inputValue('form.inquiry [name=captcha_settings]')).keyname === 'roundrobindistributor');
+await h.waitForSelector('.inquiry__captcha iframe', { timeout: 10000 }).catch(() => {});
+const captchaLoaded = (await h.$$('.inquiry__captcha iframe')).length > 0;
 await h.click('.inquiry__submit');
-ok('valid submit clears errors', (await h.$$('.inquiry [aria-invalid="true"]')).length === 0);
-ok('valid submit reports backend not connected', ((await h.textContent('.inquiry__status')) || '').includes('not connected'));
+ok('valid fields clear errors', (await h.$$('.inquiry [aria-invalid="true"]')).length === 0);
+ok('reCAPTCHA renders and an unticked captcha blocks the POST', captchaLoaded && new URL(h.url()).origin === new URL(BASE).origin
+  && ((await h.textContent('.inquiry__captcha')) || '').includes('not a robot'));
+const settingsNow = await h.inputValue('form.inquiry [name=captcha_settings]');
+ok('captcha_settings timestamp refreshed', JSON.parse(settingsNow).ts !== '', settingsNow);
+ok('reCAPTCHA adds g-recaptcha-response to the POST', (await h.$$('form.inquiry [name=g-recaptcha-response]')).length === 1);
 
 // About page
 const a = await b.newPage({ viewport: { width: 1280, height: 900 } });
@@ -159,11 +180,11 @@ ok('About: no href="#" or empty hrefs', await a.$$eval('a', (as) => as.every((x)
 ok('"Explore Mirketa" marked unavailable until URL supplied', (await a.getAttribute('.team__explore', 'aria-disabled')) === 'true');
 await a.click('.about-hero__secondary');
 await settle(a);
-ok('"Contact Our Team" scrolls to the inquiry form', Math.abs(await a.$eval('#contact', (el) => el.getBoundingClientRect().top)) <= 2);
+ok('"Contact Our Team" scrolls to the inquiry form', Math.abs(await landed(a, '#contact')) <= 2);
 await a.click('.about-hero__primary');
 await a.waitForSelector('#features');
 await settle(a);
-ok('"Explore Our Solution" opens Home features', Math.abs(await a.$eval('#features', (el) => el.getBoundingClientRect().top)) <= 2);
+ok('"Explore Our Solution" opens Home features', Math.abs(await landed(a, '#features')) <= 2);
 await a.goto(BASE + '/about-us', { waitUntil: 'networkidle' });
 await a.click('.breadcrumb__home');
 ok('breadcrumb "Home" returns to /', new URL(a.url()).pathname === '/');
@@ -297,7 +318,7 @@ ok('feedback "No" replaces "Yes"', (await ap.getAttribute('.article-feedback__bt
 ok('Latest Blogs: featured + 5 items; blog links pending (aria-disabled)', (await ap.$$('.latest-item')).length === 5
   && (await ap.$$('.latest-item__title[aria-disabled="true"]')).length === 5 && (await ap.getAttribute('.latest-featured__link', 'aria-disabled')) === 'true');
 ok('sidebar form: 6th field is "Salesforce Edition" (optional)', (await ap.$$eval('.aside-inquiry .inquiry__label', (l) => l.map((x) => x.textContent).join('|'))).includes('Salesforce Edition|')
-  && (await ap.getAttribute('.aside-inquiry input[name=salesforceEdition]', 'required')) === null);
+  && (await ap.getAttribute('.aside-inquiry input[data-field=salesforce_edition]', 'required')) === null);
 await ap.click('.aside-inquiry .inquiry__submit');
 ok('sidebar form validates (5 required fields flagged)', (await ap.$$('.aside-inquiry [aria-invalid="true"]')).length === 5);
 ok('sidebar "Explore AppExchange Listing" unavailable until URL supplied', (await ap.getAttribute('.aside-sandbox__cta', 'aria-disabled')) === 'true');
@@ -343,7 +364,7 @@ ok('index: 3 linked entries, 9 pending (aria-disabled)', (await lp.$$('a.legal-i
 await lp.click('a.legal-index__link >> text=02. The Absolute Zero-Egress Guarantee');
 await lp.waitForTimeout(900);
 ok('index link scrolls to its section and sets the hash', new URL(lp.url()).hash === '#privacy-2'
-  && (await lp.evaluate(() => Math.abs(document.getElementById('privacy-2').getBoundingClientRect().top) < 40)));
+  && Math.abs(await landed(lp, '#privacy-2')) <= 2);
 await lp.fill('.legal-index__input', 'gdpr');
 ok('index search filters entries ("gdpr" → 1)', (await lp.$$('.legal-index__list li')).length === 1);
 await lp.fill('.legal-index__input', 'zzz');
@@ -385,7 +406,7 @@ ok('Support: questions without answers stay closed', (await sq.nth(1).getAttribu
 await sp.click('.support-card__link >> text=Resolve Routing Issues');
 await sp.waitForTimeout(900);
 ok('card link scrolls to its category and sets the hash', new URL(sp.url()).hash === '#support-troubleshooting'
-  && (await sp.evaluate(() => Math.abs(document.getElementById('support-troubleshooting').getBoundingClientRect().top) < 40)));
+  && Math.abs(await landed(sp, '#support-troubleshooting')) <= 2);
 await sp.click('.contact .inquiry__submit');
 ok('Support contact form validates (6 required fields flagged)', (await sp.$$('.contact [aria-invalid="true"]')).length === 6);
 await sp.click('.breadcrumb__home');

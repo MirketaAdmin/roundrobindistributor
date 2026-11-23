@@ -144,15 +144,23 @@
   height: 18px;
 }
 
-.inquiry__status:empty {
-  display: none;
+/* reCAPTCHA v2 checkbox required by the Salesforce Web-to-Lead org (not in the Figma frames):
+   304×78 widget between the message field and the submit row. */
+.inquiry__captcha {
+  margin-top: 16px;
 }
 
-.inquiry__status {
-  margin-top: 12px;
-  font-size: 13px;
-  line-height: 18px;
-  color: var(--rrd-text-slate);
+.inquiry__captcha > div:first-child {
+  min-height: 78px;
+}
+
+@media (max-width: 399px) {
+  .inquiry__captcha > div:first-child {
+    transform: scale(0.85);
+    transform-origin: left top;
+    min-height: 66px;
+    margin-bottom: -12px;
+  }
 }
 
 @media (max-width: 639px) {

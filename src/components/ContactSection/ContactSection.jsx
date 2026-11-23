@@ -8,7 +8,7 @@ import './ContactSection.css';
 
 export default function ContactSection() {
   // "Book a Demo" sits beside the form it would scroll to; it uses the scheduling URL once supplied.
-  const demoProps = EXTERNAL_LINKS.bookDemo ? { href: EXTERNAL_LINKS.bookDemo } : { to: `/#${SECTION_IDS.contact}-form` };
+  const demoProps = EXTERNAL_LINKS.bookDemo ? { href: EXTERNAL_LINKS.bookDemo } : { to: `#${SECTION_IDS.contact}-form` };
 
   return (
     <section id={SECTION_IDS.contact} className="contact" aria-labelledby="contact-title">

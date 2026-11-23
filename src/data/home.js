@@ -291,17 +291,19 @@ export const CONTACT = {
     title: 'We’ll respond within one business day.',
     body: 'Direct technical evaluation with a Salesforce solutions engineer.',
   },
-  // AWAITING CONFIRMATION: Figma shows "Company*" twice; the second field is rendered as drawn.
+  // `name` is the Salesforce Web-to-Lead field name; `maxLength` comes from the Web-to-Lead form.
+  // AWAITING CONFIRMATION: Figma shows "Company*" twice. The second field is rendered as drawn but has no
+  // Web-to-Lead field, so it is not submitted (`submit: false`).
   fields: [
-    { name: 'firstName', label: 'First Name', placeholder: 'Jane', type: 'text', autoComplete: 'given-name', required: true },
-    { name: 'lastName', label: 'Last Name', placeholder: 'Doe', type: 'text', autoComplete: 'family-name', required: true },
-    { name: 'email', label: 'Work Email', placeholder: 'jane.doe@company.com', type: 'email', autoComplete: 'email', required: true },
-    { name: 'phone', label: 'Phone', placeholder: '+1 (555) 000-0000', type: 'tel', autoComplete: 'tel', required: true },
-    { name: 'company', label: 'Company', placeholder: 'Acme Corporation', type: 'text', autoComplete: 'organization', required: true },
-    { name: 'companySecondary', label: 'Company', placeholder: 'Acme Corporation', type: 'text', autoComplete: 'off', required: true },
+    { name: 'first_name', label: 'First Name', placeholder: 'Jane', type: 'text', autoComplete: 'given-name', maxLength: 40, required: true },
+    { name: 'last_name', label: 'Last Name', placeholder: 'Doe', type: 'text', autoComplete: 'family-name', maxLength: 80, required: true },
+    { name: 'email', label: 'Work Email', placeholder: 'jane.doe@company.com', type: 'email', autoComplete: 'email', maxLength: 80, required: true },
+    { name: 'mobile', label: 'Phone', placeholder: '+1 (555) 000-0000', type: 'tel', autoComplete: 'tel', maxLength: 40, required: true },
+    { name: 'company', label: 'Company', placeholder: 'Acme Corporation', type: 'text', autoComplete: 'organization', maxLength: 40, required: true },
+    { name: 'company_secondary', label: 'Company', placeholder: 'Acme Corporation', type: 'text', autoComplete: 'off', required: true, submit: false },
   ],
   message: {
-    name: 'message',
+    name: 'description',
     label: 'Anything that will help us prepare',
     placeholder: 'Tell us about your team size, current assignment rules, or any routing challenges...',
   },

@@ -1,4 +1,5 @@
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
+import { prefersReducedMotion } from '../../utils/scroll.js';
 import logoOnWhite from '../../assets/logos/rrd-logo-header.png';
 import logoOnLavender from '../../assets/logos/rrd-logo-footer.png';
 import './Brand.css';
@@ -11,8 +12,16 @@ import './Brand.css';
  */
 export default function Brand({ subtitle, surface = 'white', className = '', onClick }) {
   const lines = Array.isArray(subtitle) ? subtitle : null;
+  const { pathname, hash } = useLocation();
+  const handleClick = (event) => {
+    onClick?.(event);
+    if (pathname === '/' && !hash) {
+      event.preventDefault();
+      window.scrollTo({ top: 0, behavior: prefersReducedMotion() ? 'auto' : 'smooth' });
+    }
+  };
   return (
-    <Link to="/" className={`brand ${className}`.trim()} aria-label="Round Robin Distributor home" onClick={onClick}>
+    <Link to="/" className={`brand ${className}`.trim()} aria-label="Round Robin Distributor home" onClick={handleClick}>
       <img
         src={surface === 'lavender' ? logoOnLavender : logoOnWhite}
         alt=""

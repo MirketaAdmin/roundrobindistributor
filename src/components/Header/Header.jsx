@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { useLocation } from 'react-router-dom';
 import { HashLink } from '../HashLink/HashLink.jsx';
 import Button from '../Button/Button.jsx';
 import Brand from '../Brand/Brand.jsx';
@@ -7,8 +8,18 @@ import './Header.css';
 
 const DESKTOP_QUERY = '(min-width: 1024px)';
 
+/** Sticky site header. A hairline shadow appears once the page scrolls under it. */
 export default function Header() {
+  const { pathname } = useLocation();
   const [open, setOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 0);
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
 
   useEffect(() => {
     if (!open) return undefined;
@@ -26,7 +37,7 @@ export default function Header() {
   const close = () => setOpen(false);
 
   return (
-    <header className={`site-header${open ? ' is-open' : ''}`}>
+    <header className={`site-header${open ? ' is-open' : ''}${scrolled ? ' is-scrolled' : ''}`}>
       <div className="container site-header__inner">
         <Brand subtitle={['Native Salesforce App', 'A Mirketa Product']} onClick={close} />
 
@@ -47,13 +58,25 @@ export default function Header() {
           <ul className="site-header__links">
             {PRIMARY_NAV.map((item) => (
               <li key={item.label}>
-                <HashLink to={item.to} className="site-header__link" onClick={close}>
+                {/* No active-page styling in any design frame: current page is exposed to assistive tech only */}
+                <HashLink
+                  to={item.to}
+                  className="site-header__link"
+                  aria-current={!item.to.includes('#') && item.to === pathname ? 'page' : undefined}
+                  onClick={close}
+                >
                   {item.label}
                 </HashLink>
               </li>
             ))}
           </ul>
-          <Button to={HEADER_CTA.to} size="md" className="site-header__cta" onClick={close}>
+          <Button
+            to={HEADER_CTA.to}
+            size="md"
+            className="site-header__cta"
+            aria-current={HEADER_CTA.to === pathname ? 'page' : undefined}
+            onClick={close}
+          >
             {HEADER_CTA.label}
           </Button>
         </nav>

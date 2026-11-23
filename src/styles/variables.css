@@ -79,12 +79,18 @@
   /* Layout — measured on the 1280px homepage frame: 1168px column, 56px side gutters */
   --container-max: 1168px;
   --container-gutter: 56px;
+
+  /* Sticky header height (101px Figma bar; collapsed bar below 1024 / 640) */
+  --header-height: 101px;
+
+  /* Interaction timing — subtle, B2B */
+  --ease-ui: 0.18s ease;
 }
 
 @media (max-width: 1023px) {
-  :root { --container-gutter: 32px; }
+  :root { --container-gutter: 32px; --header-height: 80px; }
 }
 
 @media (max-width: 639px) {
-  :root { --container-gutter: 16px; }
+  :root { --container-gutter: 16px; --header-height: 72px; }
 }

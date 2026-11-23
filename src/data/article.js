@@ -108,7 +108,9 @@ export const SIDEBAR_INQUIRY = {
   subtitle: 'Speak directly with a certified Salesforce Solutions Architect.',
   // Same form as Contact, but the sixth field is drawn as "Salesforce Edition" (optional).
   editionField: {
-    name: 'salesforceEdition',
+    // No Web-to-Lead field exists for this yet, so it is not submitted.
+    name: 'salesforce_edition',
+    submit: false,
     label: 'Salesforce Edition',
     placeholder: 'Enterprise / Unlimited',
     type: 'text',

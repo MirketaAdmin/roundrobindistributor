@@ -7,6 +7,7 @@ export const EXTERNAL_LINKS = {
   appExchange: null,
   bookDemo: null, // until set, "Book a Demo" scrolls to the inquiry form
   mirketa: null, // About page "Explore Mirketa"
+  pricingDetails: null, // Home Pricing "See Pricing" (detailed pricing page / AppExchange pricing tab)
 };
 
 /* Site routes */
@@ -37,8 +38,16 @@ export const VIDEO_LINKS = {
   'queue-routing-demo': null,
 };
 
-/* Inquiry form endpoint — not connected yet (awaiting client decision). */
-export const INQUIRY_ENDPOINT = null;
+/* Inquiry form → Salesforce Web-to-Lead (client-supplied form, 2026-11-23). The form posts as plain HTML;
+   Salesforce redirects to `retURL` afterwards. reCAPTCHA v2 is required by the org (`captcha_settings`). */
+export const WEB_TO_LEAD = {
+  action: 'https://webto.salesforce.com/servlet/servlet.WebToLead?encoding=UTF-8&orgId=00Dd0000000hivg',
+  oid: '00Dd0000000hivg',
+  retURL: 'http://roundrobindistributor.com/thank-you/',
+  leadSource: 'Web',
+  captchaSettings: { keyname: 'roundrobindistributor', fallback: 'true', orgId: '00Dd0000000hivg', ts: '' },
+  recaptchaSiteKey: '6Lc-Ei4uAAAAAI_0LQW8LNmWOrHuiiEpUOo6KCZ4',
+};
 
 /* Homepage section anchors. */
 export const SECTION_IDS = {

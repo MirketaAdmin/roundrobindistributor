@@ -178,7 +178,7 @@
 }
 
 .ratings__play:not(:disabled):hover {
-  transform: scale(1.04);
+  background: var(--rrd-surface); /* subtle fill change (was a scale effect) */
 }
 
 .ratings__play-icon {

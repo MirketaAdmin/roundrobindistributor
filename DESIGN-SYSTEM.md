@@ -798,7 +798,7 @@ Article images are the shared Home crops.
 - **Save** toggles a pressed state; **Share** uses the Web Share API, else copies the URL (status line under the buttons).
 - **Latest Blogs:** titles are clipped in the design; only the visible text is reproduced. Full titles, URLs and the two missing thumbnails are pending, so items render `aria-disabled` (the featured card uses `ARTICLE_LINKS`, also null).
 - No page links to this article yet: the Insights cards point to `ARTICLE_LINKS`, which are null until the client supplies article URLs.
-- Inquiry submissions use the same not-connected service as the Contact form.
+- Inquiry submissions post to Salesforce Web-to-Lead like every other inquiry form (see README); "Salesforce Edition" has no Web-to-Lead field and is not submitted.
 
 ### 26.2 Assets
 
@@ -873,3 +873,50 @@ In `src/assets/legal/`. Re-create them with `python -I scripts/extract-legal-ass
 | < 1200 | Single column (index above the content); trust cards 2 columns; drawn line breaks released; tile heights released |
 | < 768 | Guarantee and licence tiles stack |
 | < 640 | Headlines 30/38; meta strip stacks; trust cards 1 column; card padding 24/20; section code under the title |
+
+## 28. Support page (`/support`)
+
+**Source:** the Support PNG, 1280×3351. Header, the shared Contact section and the Footer render as on the other pages. The route was chosen by us; the header/footer "Support" links still go to the Home inquiry form (client decision) until the client says otherwise.
+
+| Section | y range | Height | Content |
+|---|---|---|---|
+| Hero | 101–718 | 618 | `#f2f9fe`. Breadcrumb; centred two-line 56/64 headline (800, tracking −1.9px); 18/28 subtitle (tracking 0.27px); three 373×241 cards (gap 25, r16, padding 24): 44px `#e7eeff` tile, 18px tag pill ("Guide"/"Knowledge" `#cbe6fc`/`#005695`, "Diagnostics" `#fff0ef`/`#ba1a1a`), 20/28 title, 14/20 `#414751` copy, 14/700 `#005695` link |
+| Topics | 719–2191 | 1473 | White. Three categories: glyph + 28/34 semibold title + 14px subtitle; 74px `#f7f9fe` accordion rows (r12) on an 82px pitch; 18/26 500 questions; 16/24 `#414751` answer |
+| Contact (shared) | 2192–2923 | 732 | — |
+| Footer (shared) | 2924–3349 | 426 | — |
+
+### 28.1 Behaviour and open items
+
+- Card links smooth-scroll to their category and set the URL hash.
+- Only "Adding multiple values in a criteria field?" has an answer in the design; the other 11 questions are `aria-disabled` until their answers are supplied (same pattern as the Contact FAQ).
+
+### 28.2 Assets
+
+In `src/assets/support/`, re-created with `python -I scripts/extract-support-assets.py <support.png>`: three tile glyphs, three heading glyphs and the accordion chevrons, all alpha-recovered transparent PNGs.
+
+### 28.3 Responsive fallbacks (assumptions — no Support tablet/mobile frames)
+
+| Breakpoint | Fallback |
+|---|---|
+| < 1024 | Cards stack (1 column) |
+| < 640 | Headline 36/44; subtitle 16/26; category titles 24/30; accordion padding 16/20 |
+
+## 29. Interaction, motion and sticky header (site-wide)
+
+**Sticky header:** `position: sticky; top: 0; z-index: 100`. It stays in the document flow, so there is no layout shift and the resting design is pixel-identical to the frames. A hairline shadow (`0 1px 0` + `0 4px 12px`, ~5% ink) fades in over 200ms once the page scrolls. `--header-height` (101 / 80 below 1024 / 72 below 640) drives `scroll-padding-top`, so every anchor lands just below the bar. The mobile menu drops below the sticky bar and scrolls internally if it is taller than the screen.
+
+**No active-page styling:** no frame shows one. The current page link carries `aria-current="page"` for assistive technology only.
+
+**Hover (src/styles/interactions.css):** colour, border or shadow changes only, never size or position. 150–250ms (`--ease-ui` 180ms). All effects sit under `@media (hover: hover)`.
+
+| Element | Hover |
+|---|---|
+| Buttons | Existing variant fills; trailing arrow/send icon nudges 2px |
+| Nav, footer and text links | Colour to Primary / Pressed; trailing arrow nudges 2px |
+| Pricing plans, insight cards, support cards, video cards, featured blog | Minimal elevation (`0 6px 18px` ~8% ink); no cursor change, because the cards are not links |
+| Accordions with an answer | Question text to Pressed |
+| Inputs | Border to `--rrd-border` |
+| Video play button (when a URL exists) | Surface fill (replaces a scale effect) |
+| Disabled destinations (`aria-disabled`, URL pending) | Designed look kept, no hover reaction, `not-allowed` cursor, "Link not configured yet" tooltip |
+
+**Motion policy:** no entrance, scroll-triggered, text or background animation. `prefers-reduced-motion: reduce` turns off all transitions and smooth scrolling, and JS scrolling (`scrollToId`, logo-to-top) jumps instantly.
