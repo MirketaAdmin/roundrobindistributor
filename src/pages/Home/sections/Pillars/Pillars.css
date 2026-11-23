@@ -1,0 +1,88 @@
+/* Measured: 3 columns (368px, gap 32); 2px tone underline; cards stretch so all columns end level. */
+.pillars {
+  padding: 60px 0 61px;
+  background: var(--rrd-white);
+}
+
+.pillars__grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 32px;
+  margin-top: 63px;
+}
+
+.pillars__column {
+  display: flex;
+  flex-direction: column;
+}
+
+.pillars__head {
+  padding-bottom: 9px;
+  border-bottom: 2px solid currentColor;
+}
+
+.pillars__column--blue { color: var(--rrd-primary-pressed); }
+.pillars__column--green { color: var(--rrd-success); }
+.pillars__column--slate { color: var(--rrd-text-slate); }
+
+.pillars__label {
+  font-size: var(--fs-overline);
+  font-weight: 700;
+  line-height: var(--lh-overline);
+  letter-spacing: 0.9px;
+  text-transform: uppercase;
+}
+
+.pillars__title {
+  margin-top: 6px;
+  font-size: var(--fs-h4);
+  font-weight: 600;
+  line-height: var(--lh-h4);
+  max-width: 360px; /* reproduces the Figma line breaks (A wraps, C fits two lines) */
+  letter-spacing: -0.2px;
+  color: var(--rrd-heading);
+}
+
+.pillars__list {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 16px;
+  margin: 16px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.pillars__card {
+  flex: 1 1 0; /* Figma: equal-height cards per column; the tallest column stays content-sized */
+  padding: 17px 16px;
+  border: 1px solid var(--rrd-border);
+  border-radius: 12px;
+  background: var(--rrd-lavender-card);
+}
+
+.pillars__card-title {
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 22px;
+  color: var(--rrd-heading);
+}
+
+.pillars__card-body {
+  margin-top: 4px;
+  font-size: var(--fs-body);
+  line-height: 20px;
+  color: var(--rrd-text);
+}
+
+@media (max-width: 1023px) {
+  .pillars__title {
+    max-width: none;
+  }
+
+  .pillars__grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 40px;
+    margin-top: 40px;
+  }
+}

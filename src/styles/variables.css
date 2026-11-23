@@ -1,0 +1,90 @@
+/*
+  RRD design tokens.
+  Colors: sampled pixel-exact from the "RRD / Design System" and "Controls" frames.
+  Typography/spacing/radius: from the Design System frame (02–04).
+  Anything marked PROVISIONAL must be confirmed against design.md / Figma dev mode.
+*/
+:root {
+  /* 01 / Colors */
+  --rrd-primary: #126fba;
+  --rrd-primary-pressed: #005695;
+  --rrd-accent: #3fa9f5; /* decorative brand accent + focus ring */
+  --rrd-slate: #466072;
+  --rrd-white: #ffffff;
+  --rrd-surface: #f2f9fe;
+  --rrd-ink: #0b1f3a;
+  --rrd-muted: #64748b;
+  --rrd-border: #d9eaf6;
+  --rrd-success: #16a36a;
+  --rrd-warning: #f5b400;
+  --rrd-danger: #dc2626;
+
+  /* Homepage surfaces & text — sampled from the 1280px homepage frame (not in the swatch sheet) */
+  --rrd-heading: #071c36;        /* heading/title text; also Governance section fill */
+  --rrd-text: #5b6b7a;           /* paragraph text */
+  --rrd-text-strong: #414751;    /* lead copy, pill labels, footer copy */
+  --rrd-text-slate: #476274;     /* card body on light surfaces, meta text */
+  --rrd-lavender: #f9f9ff;       /* Problems / Comparison / Footer section fill */
+  --rrd-lavender-card: #f0f3ff;  /* pillar, testimonial, heritage cards; input fill */
+  --rrd-trust-card: #f5f7ff;
+  --rrd-tint: #e3f2fc;           /* icon tiles, hero chips */
+  --rrd-pill: #e7eeff;           /* industry pills */
+  --rrd-pill-strong: #d6e3ff;    /* comparison pills, footer badge */
+  --rrd-sky: #cbe6fc;            /* eyebrow pills, footer badge */
+  --rrd-thumb: #dee8ff;          /* video thumbnail surface */
+  --rrd-step-number: #d0e2f1;
+  --rrd-navy-panel: #162944;
+  --rrd-navy-card: #1b2e4a;
+  --rrd-on-navy: #e7eeff;
+  --rrd-icon-on-navy: #a0c9ff;
+  --rrd-placeholder: #9ca3af;
+
+  /* 02 / Typography — Manrope */
+  --font-heading: 'Manrope', 'Segoe UI', system-ui, sans-serif;
+  --font-body: 'Manrope', 'Segoe UI', system-ui, sans-serif; /* Manrope throughout (client decision) */
+
+  --fs-hero: 56px;   --lh-hero: 64px;   /* ExtraBold */
+  --fs-h1: 48px;     --lh-h1: 58px;     /* ExtraBold */
+  --fs-h2: 40px;     --lh-h2: 48px;     /* Bold */
+  --fs-h3: 28px;     --lh-h3: 36px;
+  --fs-h4: 22px;     --lh-h4: 30px;
+  --fs-h5: 18px;     --lh-h5: 26px;
+  --fs-body-lg: 18px; --lh-body-lg: 28px;
+  --fs-body: 14px;   --lh-body: 22.75px;
+  --fs-body-sm: 12px; --lh-body-sm: 16px;
+  --fs-label: 14px;  --lh-label: 20px;  /* SemiBold */
+  --fs-label-sm: 12px; --lh-label-sm: 16px;
+  --fs-overline: 13px; --lh-overline: 16px; /* Bold, tracked */
+  --fs-caption: 12px; --lh-caption: 16px;
+  --fs-caption-sm: 11px; --lh-caption-sm: 16.5px;
+
+  /* 03 / Spacing (4px grid, 4–120) & radius */
+  --space-1: 4px;  --space-2: 8px;  --space-3: 12px; --space-4: 16px;
+  --space-6: 24px; --space-8: 32px; --space-10: 40px; --space-12: 48px;
+  --space-16: 64px; --space-20: 80px; --space-24: 96px; --space-30: 120px;
+
+  --radius-xs: 6px;
+  --radius-control: 8px;
+  --radius-card-sm: 12px;
+  --radius-card: 16px;
+  --radius-xl: 20px;
+  --radius-2xl: 24px;
+  --radius-pill: 999px;
+
+  /* 04 / Elevation — PROVISIONAL values, frame shows names only */
+  --elevation-subtle: 0 1px 2px rgba(11, 31, 58, 0.04);
+  --elevation-card: 0 4px 16px rgba(11, 31, 58, 0.06);
+  --elevation-raised: 0 12px 32px rgba(11, 31, 58, 0.1);
+
+  /* Layout — measured on the 1280px homepage frame: 1168px column, 56px side gutters */
+  --container-max: 1168px;
+  --container-gutter: 56px;
+}
+
+@media (max-width: 1023px) {
+  :root { --container-gutter: 32px; }
+}
+
+@media (max-width: 639px) {
+  :root { --container-gutter: 16px; }
+}

@@ -1,0 +1,36 @@
+/* Measured on the homepage frame: 25px pills, 13px/600 labels; table pills 12px; hero chips 24px with a 14px icon. */
+.pill {
+  display: inline-flex;
+  align-items: center;
+  height: 25px;
+  padding: 0 10px;
+  border-radius: var(--radius-pill);
+  background: var(--rrd-pill);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--rrd-text-strong);
+}
+
+.pill--compact {
+  height: auto;
+  min-height: 25px;
+  background: var(--rrd-pill-strong);
+  font-size: 12px;
+  line-height: 16px;
+}
+
+.pill--chip {
+  gap: 5px;
+  height: 24px;
+  padding: 0 12px 0 10px;
+  background: var(--rrd-tint);
+  line-height: 16px;
+  color: var(--rrd-ink); /* approved hero chip colour */
+}
+
+.pill--chip > svg,
+.pill--chip > img {
+  flex: none;
+  width: 14px;
+  height: 14px;
+}

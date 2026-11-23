@@ -1,0 +1,39 @@
+/* Measured on the article frame: content y101–3243 on a vertical gradient (#f2f9fe → #f9f9ff by ~2000px);
+   article column 770px (x56) + 26px gap + 372px sidebar; FAQ (shared with Contact) on white below. */
+.article-page__main {
+  min-height: 3143px;
+  padding: 59px 0 30px;
+  background: linear-gradient(180deg, var(--rrd-surface) 0, var(--rrd-lavender) 2000px, var(--rrd-lavender) 100%);
+}
+
+.article-layout {
+  display: grid;
+  grid-template-columns: 770px 372px;
+  justify-content: space-between;
+  align-items: start;
+  margin-top: 17px;
+}
+
+/* FAQ sits on white here, 2px lower in its section than on the Contact page */
+.faq--article {
+  padding-top: 62px;
+  background: var(--rrd-white);
+}
+
+@media (max-width: 1199px) {
+  .article-page__main {
+    min-height: 0;
+  }
+
+  .article-layout {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 32px;
+  }
+
+  .article-layout__primary,
+  .article-aside {
+    width: 100%;
+    max-width: 770px;
+    margin: 0 auto;
+  }
+}

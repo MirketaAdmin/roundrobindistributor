@@ -1,0 +1,114 @@
+/* Measured: lavender footer; brand column 482px, link columns at x538/779/1020; bottom row 14px. */
+.site-footer {
+  padding: 70px 0 43px;
+  background: var(--rrd-lavender);
+}
+
+.site-footer__top {
+  display: grid;
+  grid-template-columns: 482px 241px 241px minmax(0, 1fr);
+}
+
+.site-footer__description {
+  max-width: 372px;
+  margin-top: 16px;
+  font-size: var(--fs-body);
+  line-height: 20px;
+  color: var(--rrd-text-strong);
+}
+
+.site-footer__badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 21px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.site-footer__badge {
+  display: inline-flex;
+  align-items: center;
+  height: 25px;
+  padding: 0 8px;
+  border-radius: var(--radius-xs);
+  background: var(--rrd-sky);
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--rrd-slate);
+}
+
+.site-footer__badge + .site-footer__badge {
+  background: var(--rrd-pill-strong);
+  color: var(--rrd-text-strong);
+}
+
+.site-footer__heading {
+  font-size: var(--fs-overline);
+  font-weight: 700;
+  line-height: var(--lh-overline);
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  color: var(--rrd-heading);
+}
+
+.site-footer__links {
+  display: grid;
+  gap: 8px;
+  line-height: 20px;
+  margin: 22px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.site-footer__link {
+  font-size: 15px;
+  line-height: 20px;
+  color: var(--rrd-text-strong);
+  transition: color 0.15s ease;
+}
+
+a.site-footer__link:hover {
+  color: var(--rrd-primary);
+}
+
+.site-footer__bottom {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 8px 24px;
+  margin-top: 67px;
+  font-size: 14px;
+  line-height: 20px;
+  color: var(--rrd-text-strong);
+}
+
+.site-footer__tagline {
+  color: var(--rrd-text-slate);
+}
+
+@media (max-width: 1199px) {
+  .site-footer__top {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 40px 24px;
+  }
+
+  .site-footer__about {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (max-width: 639px) {
+  .site-footer {
+    padding: 48px 0 32px;
+  }
+
+  .site-footer__top {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .site-footer__bottom {
+    flex-direction: column;
+    margin-top: 40px;
+  }
+}

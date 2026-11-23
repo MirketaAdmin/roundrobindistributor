@@ -1,0 +1,54 @@
+/* Home Insights section: heading row + shared ArticleCard grid (components/ArticleCard). */
+.insights {
+  padding: 56px 0 55px;
+  background: var(--rrd-white);
+}
+
+.insights__head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+.insights__heading .section-heading__eyebrow {
+  margin-bottom: 6px;
+}
+
+.insights__all {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 26px;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 20px;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  color: var(--rrd-primary-pressed);
+}
+
+.insights__all-icon {
+  width: 18px;
+  height: 18px;
+}
+
+.insights__grid {
+  margin-top: 54px;
+}
+
+@media (max-width: 1023px) {
+  .insights__head {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .insights__all {
+    margin-bottom: 0;
+  }
+
+  .insights__grid {
+    margin-top: 32px;
+  }
+}

@@ -1,0 +1,93 @@
+/* Measured: section 212px; 5 cards 221×85 (gap 16, #f5f7ff); pills row 25px, spread edge to edge. */
+.trust {
+  padding: 36px 0 35px;
+  background: var(--rrd-white);
+}
+
+.trust__stats {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 16px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.trust__stat {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 85px;
+  padding: 0 8px 0 12px;
+  border-radius: 14px;
+  background: var(--rrd-trust-card);
+}
+
+.icon-tile.trust__tile--star {
+  color: var(--rrd-warning);
+}
+
+.trust__text {
+  display: flex;
+  flex-direction: column;
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 20px;
+  letter-spacing: -0.2px; /* reproduces the Figma line breaks in Manrope */
+  color: var(--rrd-heading);
+}
+
+.trust__stars {
+  font-size: 13px;
+  line-height: 16px;
+  letter-spacing: 0.5px;
+  color: var(--rrd-warning);
+}
+
+.trust__industries {
+  display: flex;
+  align-items: center;
+  gap: 54px;
+  margin-top: 31px;
+}
+
+.trust__label {
+  flex: none;
+  font-size: 15px;
+  line-height: 20px;
+  color: var(--rrd-text-slate);
+}
+
+.trust__pills {
+  display: flex;
+  flex: 1;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* ---------- No tablet/mobile frame supplied ---------- */
+@media (max-width: 1199px) {
+  .trust__stats {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .trust__industries {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .trust__pills {
+    justify-content: flex-start;
+  }
+}
+
+@media (max-width: 639px) {
+  .trust__stats {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}

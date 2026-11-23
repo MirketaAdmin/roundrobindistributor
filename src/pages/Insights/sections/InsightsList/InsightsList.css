@@ -1,0 +1,78 @@
+/* Measured on the Insights frame: section y548–1824 (white); shared article cards in 2 rows;
+   pagination centred — 40px pages (gap 4), 28px ellipsis, 26×31 prev/next pills 8px out. */
+.insights-list {
+  min-height: 1277px;
+  padding: 30px 0 60px;
+  background: var(--rrd-white);
+}
+
+.insights-list__grid {
+  row-gap: 51px;
+}
+
+.insights-list__empty {
+  padding: 80px 0;
+  font-size: 16px;
+  text-align: center;
+  color: var(--rrd-text-slate);
+}
+
+.pager {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  margin-top: 49px;
+}
+
+.pager__page,
+.pager__gap {
+  display: grid;
+  place-items: center;
+  height: 40px;
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--rrd-ink);
+}
+
+.pager__page {
+  width: 40px;
+  border-radius: var(--radius-pill);
+}
+
+.pager__page[aria-disabled='true'] {
+  cursor: not-allowed;
+}
+
+.pager__page.is-current {
+  background: var(--rrd-primary);
+  color: var(--rrd-white);
+}
+
+.pager__gap {
+  width: 28px;
+  font-weight: 400;
+  color: #7b757f;
+}
+
+.pager__step {
+  display: grid;
+  place-items: center;
+  width: 26px;
+  height: 31px;
+  margin: 0 4px;
+  border: 1px solid #eef0f3;
+  border-radius: var(--radius-pill);
+  background: var(--rrd-white);
+  cursor: not-allowed;
+}
+
+.pager__step img {
+  display: block;
+}
+
+@media (max-width: 1023px) {
+  .insights-list__grid {
+    row-gap: 24px;
+  }
+}

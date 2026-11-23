@@ -1,0 +1,85 @@
+/* Measured: overline 13px bold tracked; H2 40/48 bold; subtitle 18/29. */
+.section-heading__eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin: 0 0 7px;
+  font-size: var(--fs-overline);
+  font-weight: 700;
+  line-height: var(--lh-overline);
+  letter-spacing: 0.9px;
+  text-transform: uppercase;
+  color: var(--rrd-primary-pressed);
+}
+
+.section-heading__eyebrow--pill {
+  height: 25px;
+  margin-bottom: 3px;
+  padding: 0 12px;
+  border-radius: var(--radius-pill);
+  background: var(--rrd-sky);
+  font-size: 12px;
+  letter-spacing: 0.8px;
+  color: #001e2e;
+}
+
+.section-heading__eyebrow--pill-dark {
+  height: 25px;
+  margin-bottom: 3px;
+  padding: 0 12px;
+  border-radius: var(--radius-pill);
+  background: var(--rrd-primary-pressed);
+  font-size: 12px;
+  letter-spacing: 0.8px;
+  color: var(--rrd-white);
+}
+
+.section-heading__eyebrow--pill-glass {
+  height: 25px;
+  padding: 0 12px;
+  border-radius: var(--radius-pill);
+  background: rgba(255, 255, 255, 0.1); /* measured #597080 on Slate */
+  font-size: 12px;
+  letter-spacing: 0.8px;
+  color: var(--rrd-on-navy);
+}
+
+.section-heading__title {
+  font-size: var(--fs-h2);
+  font-weight: 700;
+  line-height: var(--lh-h2);
+  letter-spacing: -0.8px;
+  color: var(--rrd-heading);
+}
+
+.section-heading__subtitle {
+  margin-top: 6px;
+  font-size: var(--fs-body-lg);
+  line-height: 29px;
+  color: var(--rrd-text);
+}
+
+.section-heading--center {
+  text-align: center;
+}
+
+.section-heading--dark .section-heading__title {
+  color: var(--rrd-white);
+}
+
+.section-heading--dark .section-heading__subtitle {
+  color: var(--rrd-on-navy);
+}
+
+@media (max-width: 639px) {
+  .section-heading__title {
+    font-size: 30px;
+    line-height: 38px;
+    letter-spacing: -0.5px;
+  }
+
+  .section-heading__subtitle {
+    font-size: 16px;
+    line-height: 26px;
+  }
+}

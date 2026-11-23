@@ -1,0 +1,144 @@
+/* Measured on the 1280px homepage frame: section 714px tall (y101–814), text column 560px.
+   Background = photo + shapes recovered from the PNG reference with the copy removed
+   (scripts/extract-png-assets.py). At 1280px it maps 1:1 onto the frame. */
+.hero {
+  position: relative;
+  overflow: hidden;
+  min-height: 714px;
+  background: var(--rrd-surface) url('../../../../assets/images/hero-background.webp') center top / cover no-repeat;
+}
+
+.hero__inner {
+  position: relative;
+  z-index: 1;
+}
+
+.hero__content {
+  max-width: 560px;
+  padding: 76px 0 58px;
+}
+
+.hero__title {
+  font-size: var(--fs-hero);
+  font-weight: 800;
+  line-height: var(--lh-hero);
+  letter-spacing: -1.2px;
+  color: var(--rrd-ink);
+}
+
+.hero__title-accent {
+  color: var(--rrd-primary);
+}
+
+.hero__lead {
+  max-width: 544px; /* reproduces the Figma line breaks (4 lines) */
+  margin-top: 14px;
+  font-size: var(--fs-body-lg);
+  line-height: 30px;
+  color: var(--rrd-muted);
+}
+
+.hero__chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 16px;
+  margin: 19px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.hero__chip-icon--pressed { color: var(--rrd-primary-pressed); }
+.hero__chip-icon--success { color: var(--rrd-success); }
+.hero__chip-icon--slate { color: var(--rrd-slate); }
+.hero__chip-icon--primary { color: var(--rrd-primary); }
+
+.hero__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-top: 25px;
+}
+
+.hero__demo {
+  gap: 6px;
+  box-shadow: 0 8px 20px rgba(18, 111, 186, 0.22);
+}
+
+.hero__demo-icon {
+  flex: none;
+  width: 18px;
+  height: 18px;
+}
+
+.hero__note {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  margin-top: 25px;
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 18px;
+  color: var(--rrd-muted);
+}
+
+.hero__note:hover {
+  color: var(--rrd-primary);
+}
+
+.hero__note-icon {
+  flex: none;
+  width: 16px;
+  height: 16px;
+}
+
+.hero__media {
+  display: none;
+}
+
+/* ---------- No tablet/mobile frame supplied: single column, photo below copy ---------- */
+@media (max-width: 1199px) {
+  .hero {
+    min-height: 0;
+    background-image: none;
+  }
+
+  .hero__content {
+    max-width: 640px;
+    padding: 56px 0 32px;
+  }
+
+  /* Right-hand 680×614 of the background (photo + shapes), scaled to the column width */
+  .hero__media {
+    display: block;
+    width: 100%;
+    max-width: 680px;
+    aspect-ratio: 680 / 614;
+    margin: 0 auto;
+    background: url('../../../../assets/images/hero-background.webp') right bottom / calc(100% * 1280 / 680) auto no-repeat;
+  }
+}
+
+@media (max-width: 639px) {
+  .hero__content {
+    padding: 40px 0 24px;
+  }
+
+  .hero__title {
+    font-size: 36px;
+    line-height: 44px;
+    letter-spacing: -0.6px;
+  }
+
+  .hero__lead {
+    font-size: 16px;
+    line-height: 26px;
+  }
+
+  .hero__actions {
+    margin-top: 24px;
+  }
+
+  .hero__actions .btn {
+    flex: 1 1 100%;
+  }
+}

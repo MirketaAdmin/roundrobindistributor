@@ -1,0 +1,5 @@
+/* Measured on the Contact frame: one vertical gradient behind all content (y101–2122),
+   Surface #f2f9fe at the top easing to #f9f9ff by ~1440px, then flat. */
+.contact-page {
+  background: linear-gradient(180deg, var(--rrd-surface) 0, var(--rrd-lavender) 1440px, var(--rrd-lavender) 100%);
+}

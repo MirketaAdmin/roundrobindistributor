@@ -1,0 +1,113 @@
+/* Measured on the About frame: section 751px (y1271–2021, #f2f9fe); 3 cards 375×278 (gap 22, r12);
+   stats strip 1168×134 (r18). */
+.ecosystem {
+  min-height: 751px;
+  padding: 62px 0 58px;
+  background: var(--rrd-surface);
+}
+
+.ecosystem__heading .section-heading__subtitle {
+  max-width: 1116px; /* reproduces the Figma line break (1096–1137px all match) */
+}
+
+.ecosystem__cards {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 22px;
+  margin: 43px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ecosystem__card {
+  min-height: 278px;
+  padding: 19px 20px 20px;
+  border-radius: var(--radius-card-sm);
+  background: var(--rrd-white);
+  box-shadow: 0 1px 3px rgba(7, 28, 54, 0.07);
+}
+
+.ecosystem__tile {
+  display: block;
+  width: 48px;
+  height: 48px;
+  border-radius: var(--radius-card-sm);
+  background: #e7eeff; /* measured tile fill */
+}
+
+/* Recovered icon crops span the full tile */
+.ecosystem__icon {
+  display: block;
+}
+
+.ecosystem__title {
+  margin-top: 17px;
+  font-size: var(--fs-h5);
+  font-weight: 600;
+  line-height: 26px;
+  color: var(--rrd-heading);
+}
+
+.ecosystem__body {
+  max-width: 282px; /* reproduces the Figma line breaks (280–285px all match) */
+  margin-top: 16px;
+  font-size: 16px;
+  line-height: 26px;
+  color: var(--rrd-text-strong);
+}
+
+.ecosystem__stats {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  align-items: start;
+  min-height: 134px;
+  margin: 38px 0 0;
+  padding: 31px 12px 0;
+  border-radius: 18px;
+  background: var(--rrd-white);
+  box-shadow: 0 1px 3px rgba(7, 28, 54, 0.07);
+}
+
+.ecosystem__stat {
+  display: flex;
+  flex-direction: column-reverse;
+  align-items: center;
+  text-align: center;
+}
+
+.ecosystem__value {
+  margin: 0;
+  font-size: var(--fs-h2);
+  font-weight: 700;
+  line-height: 48px;
+  letter-spacing: -0.8px;
+  color: var(--rrd-primary);
+}
+
+.ecosystem__star {
+  font-size: 40px;
+}
+
+.ecosystem__label {
+  margin-top: 4px;
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 16px;
+  color: var(--rrd-text-strong);
+}
+
+@media (max-width: 1023px) {
+  .ecosystem__body {
+    max-width: none;
+  }
+
+  .ecosystem__cards {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .ecosystem__stats {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 24px 0;
+    padding: 24px 12px;
+  }
+}

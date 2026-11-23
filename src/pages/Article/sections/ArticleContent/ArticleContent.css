@@ -1,0 +1,348 @@
+/* Measured on the article frame: card 770×2915 (y201, 1px #e4eaf1, r16), content from x94;
+   tag pills 26px; 40/49.5 headline; 695×449 hero (r12); 52px avatar; 18/29.7 intro; 24/32 H2;
+   16/26 paragraphs (#476274); numbered 20/28 H3 with a 31×32 #005695 badge; 1px #e2e8f0 figure (r12). */
+.article-card-main {
+  padding: 37px 8px 36px 37px;
+  border: 1px solid #e4eaf1;
+  border-radius: var(--radius-card);
+  background: var(--rrd-white);
+  box-shadow: 0 1px 3px rgba(7, 28, 54, 0.04);
+}
+
+/* ---------- Head ---------- */
+.article-head__meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.article-head__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.article-tag {
+  display: inline-flex;
+  align-items: center;
+  height: 26px;
+  padding: 0 12px;
+  border: 1px solid;
+  border-radius: var(--radius-pill);
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 16px;
+}
+
+.article-tag--blue {
+  border-color: #bfdbfe;
+  background: #eff6ff;
+  color: var(--rrd-primary-pressed);
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+}
+
+.article-tag--green {
+  border-color: #a7f3d0;
+  background: #ecfdf5;
+  font-weight: 600;
+  color: #047857;
+}
+
+.article-head__time {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  gap: 2px;
+  font-size: 13px;
+  line-height: 16px;
+  color: var(--rrd-muted);
+}
+
+.article-head__title {
+  margin-top: 24px;
+  max-width: 700px;
+  font-size: 40px;
+  font-weight: 800;
+  line-height: 49.5px;
+  color: var(--rrd-heading);
+}
+
+.article-head__accent {
+  color: var(--rrd-primary-pressed);
+}
+
+.article-head__image {
+  display: block;
+  width: 695px;
+  max-width: 100%;
+  height: auto;
+  margin-top: 25px;
+  border-radius: var(--radius-card-sm);
+}
+
+/* ---------- Author ---------- */
+.article-author {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 22px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid #eef2f6;
+}
+
+.article-author__avatar {
+  flex: none;
+  margin-left: -2px; /* avatar sits 2px outside the text column, as drawn */
+  border-radius: 50%;
+}
+
+.article-author__text {
+  flex: 1;
+  min-width: 0;
+}
+
+.article-author__name {
+  display: block;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 22px;
+  color: var(--rrd-heading);
+}
+
+.article-author__role {
+  display: block;
+  font-size: 13px;
+  line-height: 18px;
+  color: var(--rrd-muted);
+}
+
+.article-author__actions {
+  display: flex;
+  flex: none;
+  gap: 7px;
+}
+
+.article-action {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  height: 37px;
+  border: 1px solid #e2e8f0;
+  border-radius: var(--radius-control);
+  background: var(--rrd-white);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--rrd-heading);
+  cursor: pointer;
+}
+
+.article-action:hover {
+  border-color: var(--rrd-border);
+  background: var(--rrd-surface);
+}
+
+.article-action--save {
+  width: 75px;
+}
+
+.article-action--save[aria-pressed='true'] {
+  border-color: var(--rrd-primary-pressed);
+  background: #eff6ff;
+}
+
+.article-action--share {
+  width: 37px;
+}
+
+.article-action img {
+  display: block;
+}
+
+.article-author__note {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  margin-top: 4px;
+  font-size: 12px;
+  color: var(--rrd-muted);
+}
+
+.article-author__note:empty {
+  display: none;
+}
+
+/* ---------- Body ---------- */
+.article-body {
+  max-width: 723px;
+}
+
+.article-body__intro {
+  margin-top: 23px;
+  font-size: 18px;
+  line-height: 29.7px;
+  letter-spacing: 0.2px; /* Manrope tracking that matches the Figma line lengths */
+  white-space: pre-line;
+  color: var(--rrd-text-slate);
+}
+
+.article-body__h2 {
+  margin-top: 22px;
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 32px;
+  letter-spacing: -0.3px;
+  white-space: pre-line;
+  color: var(--rrd-heading);
+}
+
+.article-body__p {
+  max-width: 723px;
+  margin-top: 24px;
+  font-size: 16px;
+  line-height: 26px;
+  letter-spacing: 0.2px; /* Manrope tracking that matches the Figma line lengths */
+  white-space: pre-line;
+  color: var(--rrd-text-slate);
+}
+
+.article-body__h2 + .article-body__p {
+  margin-top: 25px;
+}
+
+.article-body__p strong {
+  font-weight: 700;
+  color: var(--rrd-text-strong);
+}
+
+.article-gaps {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.article-gap {
+  margin-top: 23px;
+}
+
+.article-gap--divided {
+  padding-bottom: 25px;
+  border-bottom: 1px solid #eef2f6;
+}
+
+.article-gap__title {
+  display: flex;
+  align-items: center; /* badge centres on one- and two-line titles, as drawn */
+  gap: 13px;
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 28px;
+  letter-spacing: 0.2px;
+  color: var(--rrd-heading);
+}
+
+.article-gap__text {
+  white-space: pre-line;
+}
+
+.article-gap__badge {
+  display: grid;
+  flex: none;
+  width: 31px;
+  height: 32px;
+  place-items: center;
+  border-radius: var(--radius-xs);
+  background: var(--rrd-primary-pressed);
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--rrd-white);
+}
+
+.article-gap__title + .article-body__p {
+  margin-top: 25px;
+}
+
+/* ---------- Figure ---------- */
+.article-figure {
+  max-width: 695px;
+  margin: 32px 0 3px;
+  overflow: hidden;
+  border: 1px solid #e2e8f0;
+  border-radius: var(--radius-card-sm);
+}
+
+.article-figure img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.article-figure__caption {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  min-height: 36px;
+  padding: 0 12px 2px;
+  background: #f8fafc;
+  font-size: 12px;
+  line-height: 16px;
+  color: #475569;
+}
+
+.article-figure__label {
+  flex: none;
+  font-weight: 600;
+  color: var(--rrd-primary-pressed);
+}
+
+/* ---------- No tablet/mobile frame supplied ---------- */
+@media (max-width: 1199px) {
+  .article-card-main {
+    padding-right: 37px;
+  }
+
+  .article-body__intro,
+  .article-body__p,
+  .article-body__h2,
+  .article-gap__text {
+    white-space: normal;
+  }
+}
+
+@media (max-width: 639px) {
+  .article-card-main {
+    padding: 24px 20px 28px;
+  }
+
+  .article-head__meta {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .article-head__title {
+    font-size: 30px;
+    line-height: 38px;
+    letter-spacing: -0.4px;
+  }
+
+  .article-author {
+    flex-wrap: wrap;
+  }
+
+  .article-author__actions {
+    width: 100%;
+  }
+
+  .article-figure__caption {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 8px 12px;
+  }
+}

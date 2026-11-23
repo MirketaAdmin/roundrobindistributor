@@ -1,0 +1,13 @@
+/* Measured on the Privacy Policy & T&C frame: content y101–3585 on a vertical gradient
+   (#f2f9fe → #f9f9ff by ~2500px); the shared Contact section and Footer follow. */
+.legal-page__main {
+  min-height: 3485px;
+  padding: 59px 0 61px;
+  background: linear-gradient(180deg, var(--rrd-surface) 0, var(--rrd-lavender) 2500px, var(--rrd-lavender) 100%);
+}
+
+@media (max-width: 1199px) {
+  .legal-page__main {
+    min-height: 0;
+  }
+}

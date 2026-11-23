@@ -1,0 +1,63 @@
+/* Measured on the 1280px frame: logo 74×61, 11px gap, title 19/23 semibold, subtitle 13/17 medium. */
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  min-width: 0;
+}
+
+.brand__logo {
+  width: 74px;
+  height: 61px;
+}
+
+.brand__text {
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 2px;
+}
+
+/* Footer: subtitle wraps to the width of the product name */
+.brand__text--wrap {
+  display: grid;
+  grid-template-columns: min-content;
+}
+
+.brand__title {
+  font-family: var(--font-heading);
+  font-size: 19px;
+  font-weight: 600;
+  line-height: 23px;
+  letter-spacing: -0.4px;
+  white-space: nowrap;
+  color: var(--rrd-ink);
+  transform: translateY(1px); /* aligns Manrope cap line with the Figma title */
+}
+
+.brand__subtitle {
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 17px;
+  color: var(--rrd-muted);
+}
+
+@media (max-width: 639px) {
+  .brand {
+    gap: 10px;
+  }
+
+  .brand__logo {
+    width: 56px;
+    height: 46px;
+  }
+
+  .brand__title {
+    font-size: 16px;
+    line-height: 20px;
+  }
+
+  .brand__subtitle {
+    font-size: 12px;
+    line-height: 15px;
+  }
+}

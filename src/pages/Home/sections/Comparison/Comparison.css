@@ -1,0 +1,147 @@
+/* Measured: table 1168×387 (radius 24), head 48px, rows 56px, columns 436/400/332. */
+.comparison {
+  padding: 62px 0 60px;
+  background: var(--rrd-lavender);
+}
+
+.comparison__heading .section-heading__eyebrow {
+  margin-bottom: 6px;
+}
+
+.comparison__heading .section-heading__subtitle {
+  max-width: 1120px; /* reproduces the Figma line break */
+  margin-top: 8px;
+}
+
+.comparison__scroller {
+  margin-top: 26px;
+  border-radius: var(--radius-2xl);
+  background: var(--rrd-white);
+  box-shadow: 0 1px 4px rgba(7, 28, 54, 0.06);
+}
+
+.comparison__table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  table-layout: fixed;
+}
+
+.comparison__table th,
+.comparison__table td {
+  padding: 0 16px;
+  text-align: left;
+  vertical-align: middle;
+}
+
+.comparison__table thead th {
+  height: 48px;
+  background: var(--rrd-lavender-card);
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 16px;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  color: var(--rrd-text);
+}
+
+.comparison__table thead th:first-child {
+  width: 37.33%; /* 436 / 1168 */
+  border-top-left-radius: var(--radius-2xl);
+}
+
+.comparison__table thead th:nth-child(2) {
+  width: 34.25%; /* 400 / 1168 */
+}
+
+.comparison__table thead .comparison__rrd-head {
+  padding-left: 24px;
+  border-radius: var(--radius-xl) var(--radius-xl) 0 0;
+  background: var(--rrd-primary);
+  color: var(--rrd-white);
+}
+
+.comparison__table tbody th,
+.comparison__table tbody td {
+  height: 56px;
+}
+
+.comparison__table tbody th {
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 20px;
+  color: var(--rrd-heading);
+}
+
+.comparison__table .comparison__rrd {
+  padding-left: 24px;
+  border-top: 1px solid #f8fcfe;
+  background: var(--rrd-surface);
+}
+
+.comparison__table tbody tr:first-child .comparison__rrd {
+  border-top: 0;
+}
+
+.comparison__table tbody tr:last-child .comparison__rrd {
+  border-bottom-right-radius: var(--radius-2xl);
+}
+
+.comparison__check {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 20px;
+  color: var(--rrd-success);
+}
+
+.comparison__check-icon {
+  flex: none;
+  width: 16px;
+  height: 16px;
+}
+
+.comparison__more {
+  margin-top: 24px;
+  text-align: center;
+}
+
+.comparison__link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 20px;
+  color: var(--rrd-primary-pressed);
+}
+
+.comparison__link-icon {
+  width: 16px;
+  height: 16px;
+}
+
+/* ---------- No tablet/mobile frame supplied: table scrolls horizontally inside its card ---------- */
+@media (max-width: 1023px) {
+  .comparison__heading .section-heading__subtitle {
+  max-width: 1120px; /* reproduces the Figma line break */
+}
+
+.comparison__scroller {
+    overflow-x: auto;
+  }
+
+  .comparison__table {
+    min-width: 760px;
+  }
+}
+
+/* Figma section height (718px). Fractional line heights would otherwise leave every later
+   section on a half pixel, which blurs images rendered further down the page. */
+@media (min-width: 1200px) {
+  .comparison {
+    min-height: 718px;
+  }
+}

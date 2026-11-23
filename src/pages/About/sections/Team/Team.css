@@ -1,0 +1,212 @@
+/* Measured on the About frame: section 702px (y2454–3155), 2px top rule, #fafcff.
+   People column 572px (2 cards 279×347, gap 14); connection card 573×583 (r20, 1px #edf4fa). */
+.team {
+  min-height: 702px;
+  padding: 61px 0 0;
+  border-top: 2px solid #eff6fc;
+  background: #fafcff;
+}
+
+.team__inner {
+  display: grid;
+  grid-template-columns: 572px minmax(0, 1fr);
+  gap: 24px;
+  align-items: start;
+}
+
+.team__heading .section-heading__eyebrow {
+  margin-bottom: 7px;
+}
+
+.team__body {
+  max-width: 560px; /* reproduces the Figma line breaks (541–572px all match) */
+  margin-top: 11px;
+  font-size: 16px;
+  line-height: 24px;
+  color: var(--rrd-slate);
+}
+
+.team__cards {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+  margin: 26px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.team__card {
+  min-height: 347px;
+  padding: 9px 10px 0;
+  border-radius: var(--radius-control);
+  background: var(--rrd-white);
+  box-shadow: 0 1px 3px rgba(7, 28, 54, 0.06);
+}
+
+.team__photo {
+  display: block;
+  width: 100%;
+  max-width: none;
+  height: 260px;
+  object-fit: cover;
+  border-radius: var(--radius-control);
+}
+
+.team__name {
+  margin-top: 17px;
+  font-size: var(--fs-h5);
+  font-weight: 500;
+  line-height: 24px;
+  color: var(--rrd-heading);
+}
+
+.team__role {
+  margin-top: 4px;
+  font-size: 14px;
+  line-height: 20px;
+  color: var(--rrd-text-slate);
+}
+
+/* ---------- Connection card ---------- */
+.team__connection {
+  margin-top: -3px;
+  padding: 35px 33px 31px;
+  border: 1px solid #edf4fa;
+  border-radius: var(--radius-xl);
+  background: var(--rrd-white);
+  box-shadow: 0 1px 3px rgba(7, 28, 54, 0.05);
+}
+
+.team__connection-heading .section-heading__eyebrow {
+  margin-bottom: 19px;
+}
+
+.team__connection-heading .section-heading__title {
+  line-height: 40px;
+}
+
+.team__connection-body {
+  max-width: 460px; /* reproduces the Figma line breaks (445–475px all match) */
+  margin-top: 15px;
+  font-size: 14px;
+  line-height: 23px;
+  color: var(--rrd-slate);
+}
+
+.team__entity {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  min-height: 81px;
+  margin-top: 17px;
+  padding: 0 12px 0 15px;
+  border-radius: 10px;
+}
+
+.team__entity--mirketa {
+  background: var(--rrd-lavender-card);
+}
+
+.team__entity--rrd {
+  margin-top: 0;
+  background: #f2f6f9;
+}
+
+.team__entity-logo {
+  flex: none;
+}
+
+.team__entity-text {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+}
+
+.team__entity-name {
+  font-size: var(--fs-h5);
+  font-weight: 500;
+  line-height: 23px;
+  color: var(--rrd-heading);
+}
+
+.team__entity-desc {
+  font-size: 14px;
+  line-height: 20px;
+  color: var(--rrd-text-slate);
+}
+
+.team__entity-icon {
+  flex: none;
+}
+
+.team__link-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  height: 53px;
+}
+
+.team__dash {
+  width: 32px;
+  height: 2px;
+  border-radius: 1px;
+  background: #ccddea;
+}
+
+.team__points {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 4px;
+  margin: 21px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.team__point {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 18px;
+  color: var(--rrd-text-strong);
+}
+
+.team__explore {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 19px;
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 20px;
+  color: var(--rrd-primary);
+}
+
+.team__explore-icon {
+  width: 18px;
+  height: 18px;
+}
+
+@media (max-width: 1199px) {
+  .team {
+    padding-bottom: 56px;
+  }
+
+  .team__inner {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 40px;
+  }
+}
+
+@media (max-width: 639px) {
+  .team__cards,
+  .team__points {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .team__connection {
+    padding: 24px;
+  }
+}

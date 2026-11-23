@@ -1,0 +1,244 @@
+/* Measured: 4 stat cards 280×148 (#f2f9fe); testimonial 1168×190 (#f0f3ff, r24); 3 video cards 369×306. */
+.ratings {
+  padding: 57px 0 58px;
+  background: var(--rrd-white);
+}
+
+.ratings__title {
+  font-size: var(--fs-h2);
+  font-weight: 700;
+  line-height: var(--lh-h2);
+  letter-spacing: -0.8px;
+  color: var(--rrd-heading);
+}
+
+.ratings__stats {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 16px;
+  margin: 26px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ratings__stat {
+  display: flex;
+  flex-direction: column;
+  min-height: 148px;
+  padding: 24px;
+  border-radius: var(--radius-card);
+  background: var(--rrd-surface);
+  box-shadow: var(--elevation-subtle);
+}
+
+.ratings__stars {
+  margin-top: 3px;
+  font-size: 20px;
+  line-height: 20px;
+  letter-spacing: 1.4px;
+  color: var(--rrd-warning);
+}
+
+.ratings__stat-title {
+  margin-top: 9px;
+  font-size: var(--fs-h4);
+  font-weight: 600;
+  line-height: 28px;
+  color: var(--rrd-heading);
+}
+
+.ratings__value {
+  font-size: var(--fs-h2);
+  font-weight: 700;
+  line-height: 48px;
+  letter-spacing: -0.8px;
+  color: var(--rrd-primary-pressed);
+}
+
+.ratings__label {
+  margin-top: 6px;
+  font-size: var(--fs-h5);
+  font-weight: 600;
+  line-height: 24px;
+  color: var(--rrd-heading);
+}
+
+.ratings__caption {
+  margin-top: 4px;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 16px;
+  color: var(--rrd-text);
+}
+
+.ratings__stat-title + .ratings__caption {
+  margin-top: 5px;
+}
+
+.ratings__testimonial {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 32px;
+  margin: 22px 0 0;
+  padding: 38px 36px 37px;
+  border-radius: var(--radius-2xl);
+  background: var(--rrd-lavender-card);
+  box-shadow: var(--elevation-subtle);
+}
+
+.ratings__stars--quote {
+  display: block;
+  margin-top: 0;
+  font-size: 18px;
+  letter-spacing: 1.2px;
+}
+
+.ratings__quote {
+  max-width: 740px; /* reproduces the Figma line break */
+  margin: 10px 0 0;
+  font-size: var(--fs-body-lg);
+  font-style: italic;
+  line-height: 28px;
+  color: var(--rrd-heading);
+}
+
+.ratings__author {
+  margin-top: 8px;
+  font-size: var(--fs-body);
+  line-height: 20px;
+  color: var(--rrd-text);
+}
+
+.ratings__author strong {
+  font-weight: 700;
+  color: var(--rrd-text-slate);
+}
+
+.ratings__appexchange {
+  flex: none;
+  width: 221px; /* Figma width */
+  height: 43px;
+  padding: 0;
+  box-shadow: var(--elevation-subtle);
+  color: var(--rrd-primary-pressed);
+}
+
+.ratings__appexchange-icon {
+  width: 16px;
+  height: 16px;
+}
+
+.ratings__videos-title {
+  margin-top: 44px;
+  font-size: var(--fs-h4);
+  font-weight: 600;
+  line-height: var(--lh-h4);
+  color: var(--rrd-heading);
+}
+
+.ratings__videos {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 31px;
+  margin: 16px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ratings__video {
+  overflow: hidden;
+  border-radius: var(--radius-card);
+  background: var(--rrd-surface);
+}
+
+.ratings__thumb {
+  display: grid;
+  place-items: center;
+  height: 175px;
+  background: var(--rrd-thumb);
+}
+
+.ratings__play {
+  display: grid;
+  place-items: center;
+  width: 56px;
+  height: 56px;
+  padding: 0 0 0 3px;
+  border: 0;
+  border-radius: var(--radius-pill);
+  background: var(--rrd-white);
+  box-shadow: var(--elevation-card);
+  color: var(--rrd-primary-pressed);
+  cursor: pointer;
+}
+
+.ratings__play:disabled {
+  cursor: not-allowed;
+}
+
+.ratings__play:not(:disabled):hover {
+  transform: scale(1.04);
+}
+
+.ratings__play-icon {
+  width: 18px;
+  height: 18px;
+}
+
+.ratings__video-body {
+  padding: 18px 20px 18px;
+}
+
+.ratings__video-title {
+  font-size: var(--fs-h5);
+  font-weight: 600;
+  line-height: 24px;
+  color: var(--rrd-heading);
+}
+
+.ratings__video-text {
+  margin-top: 7px;
+  font-size: var(--fs-body);
+  line-height: 20px;
+  color: var(--rrd-text-slate);
+}
+
+@media (max-width: 1023px) {
+  .ratings__stats {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .ratings__stat-title + .ratings__caption {
+  margin-top: 5px;
+}
+
+.ratings__testimonial {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .ratings__videos {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 24px;
+  }
+}
+
+@media (max-width: 639px) {
+  .ratings__title {
+    font-size: 30px;
+    line-height: 38px;
+  }
+
+  .ratings__stats {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .ratings__stat-title + .ratings__caption {
+  margin-top: 5px;
+}
+
+.ratings__testimonial {
+    padding: 24px;
+  }
+}

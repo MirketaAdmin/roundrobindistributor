@@ -1,0 +1,42 @@
+[
+  {
+    "name": "site-header",
+    "top": 0,
+    "height": 101
+  },
+  {
+    "name": "about-hero",
+    "top": 101,
+    "height": 634
+  },
+  {
+    "name": "who",
+    "top": 735,
+    "height": 536
+  },
+  {
+    "name": "ecosystem",
+    "top": 1271,
+    "height": 751
+  },
+  {
+    "name": "solutions",
+    "top": 2022,
+    "height": 432
+  },
+  {
+    "name": "team",
+    "top": 2454,
+    "height": 702
+  },
+  {
+    "name": "contact",
+    "top": 3156,
+    "height": 732
+  },
+  {
+    "name": "site-footer",
+    "top": 3888,
+    "height": 426
+  }
+]

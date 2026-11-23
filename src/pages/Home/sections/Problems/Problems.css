@@ -1,0 +1,68 @@
+/* Measured: section 774px + 1px rule; 3×2 cards (gap 31/30), 44px tinted tiles. */
+.problems {
+  padding: 63px 0 58px;
+  border-bottom: 1px solid #ddecf7;
+  background: var(--rrd-lavender);
+}
+
+.problems .section-heading__subtitle {
+  max-width: 1140px; /* reproduces the Figma line break */
+}
+
+.problems__grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 30px 31px;
+  margin: 38px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.problems__card {
+  padding: 24px 24px 28px;
+  border: 1px solid var(--rrd-border);
+  border-radius: 14px;
+  background: var(--rrd-white);
+}
+
+.problems__title {
+  margin-top: 16px;
+  font-size: var(--fs-h5);
+  font-weight: 600;
+  line-height: 26px;
+  color: var(--rrd-heading);
+}
+
+.problems__body {
+  max-width: 311px; /* reproduces the Figma line breaks (305–317px all match) */
+  margin-top: 2px;
+  font-size: var(--fs-body);
+  line-height: var(--lh-body);
+  color: var(--rrd-text);
+}
+
+@media (max-width: 1023px) {
+  .problems__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 24px;
+  }
+}
+
+@media (max-width: 639px) {
+  .problems {
+    padding: 48px 0;
+  }
+
+  .problems__grid {
+    grid-template-columns: minmax(0, 1fr);
+    margin-top: 28px;
+  }
+}
+
+/* Figma section height (775px). Fractional line heights would otherwise leave every later
+   section on a half pixel, which blurs images rendered further down the page. */
+@media (min-width: 1200px) {
+  .problems {
+    min-height: 775px;
+  }
+}

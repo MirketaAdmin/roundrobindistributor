@@ -1,0 +1,100 @@
+/* Measured: Slate section; copy column + form card 629×611 (r24, p30); inputs 44px #f0f3ff, gap 20. */
+.contact {
+  padding: 60px 0 61px;
+  background: var(--rrd-slate);
+}
+
+.contact__inner {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 629px;
+  align-items: start;
+  gap: 40px;
+}
+
+.contact__heading .section-heading__eyebrow {
+  margin-bottom: 18px;
+}
+
+.contact__eyebrow-icon {
+  width: 14px;
+  height: 14px;
+}
+
+.contact__heading .section-heading__title {
+  max-width: 440px;
+}
+
+.contact__heading .section-heading__subtitle {
+  max-width: 470px;
+  margin-top: 20px;
+  line-height: 28px;
+  color: var(--rrd-white);
+}
+
+.contact__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 17px;
+  margin-top: 40px;
+}
+
+/* Figma button widths (labels centred) */
+.contact__demo { width: 178px; padding: 0; }
+.contact__appexchange { width: 252px; padding: 0; }
+
+.contact__btn-icon {
+  width: 16px;
+  height: 16px;
+}
+
+.contact__btn-icon--cloud {
+  width: 18px;
+  height: 18px;
+}
+
+.contact__points {
+  display: grid;
+  gap: 14px;
+  margin: 33px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.contact__point {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 15px;
+  line-height: 20px;
+  color: var(--rrd-white);
+}
+
+.contact__point-icon {
+  flex: none;
+  width: 14px;
+  height: 14px;
+  color: var(--rrd-success);
+}
+
+.contact__card {
+  padding: 29px 30px 32px;
+  border-radius: var(--radius-2xl);
+  background: var(--rrd-white);
+  box-shadow: 0 20px 40px rgba(7, 28, 54, 0.18);
+}
+
+@media (max-width: 1199px) {
+  .contact__inner {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .contact__card {
+    max-width: 629px;
+  }
+}
+
+@media (max-width: 639px) {
+  .contact__card {
+    padding: 20px;
+  }
+}

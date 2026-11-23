@@ -1,0 +1,49 @@
+/* Measured on the About frame: section 536px (y735–1270); mockup 570×412 at x32; copy column from x656. */
+.who {
+  min-height: 536px;
+  padding: 57px 0 0;
+  background: var(--rrd-white);
+}
+
+.who__inner {
+  display: grid;
+  grid-template-columns: 545px minmax(0, 1fr);
+  gap: 55px;
+  align-items: start;
+}
+
+.who__image {
+  display: block;
+  max-width: none;
+  margin: 21px 0 0 -24px; /* image includes its shadow + badge bleed: content edge sits at x56 */
+}
+
+.who__heading .section-heading__eyebrow {
+  margin-bottom: 15px;
+}
+
+.who__heading .section-heading__title {
+  max-width: 540px;
+}
+
+.who__text {
+  max-width: 535px; /* reproduces the Figma line breaks (528–542px all match) */
+  margin-top: 16px;
+  font-size: 16px;
+  line-height: 26px;
+  color: var(--rrd-text-strong);
+}
+
+@media (max-width: 1199px) {
+  .who__inner {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 32px;
+  }
+
+  .who__image {
+    width: 100%;
+    max-width: 570px;
+    height: auto;
+    margin: 0;
+  }
+}

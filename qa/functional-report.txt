@@ -1,0 +1,138 @@
+Round Robin DistributorNative Salesforce AppA Mirketa Product -> /
+About RRD -> /about-us
+Features -> /#features
+Pricing -> /#pricing
+Support -> /#contact
+Insights -> /insights
+Contact Us -> /contact-us
+Book a Demo -> /#contact
+See Pricing -> /#pricing
+Rules-driven execution. AI where it pays. -> /#governance
+See How RRD Works -> /#how-it-works
+Get Started -> /#contact
+See Pricing -> /#pricing
+Talk to Our Team -> /#contact
+See all insights -> /insights
+Book a Demo -> /#contact-form
+Round Robin DistributorA Mirketa Product · Native Salesforce App -> /
+Features -> /#features
+How It Works -> /#how-it-works
+RRD vs. Native Tools -> /#comparison
+Pricing -> /#pricing
+Lead Distribution -> /#features
+Case Distribution -> /#features
+Opportunity Distribution -> /#features
+Custom Object Distribution -> /#features
+Startup Solutions -> /#pricing
+Nonprofit Solutions -> /#pricing
+Enterprise Solutions -> /#pricing
+About RRD -> /about-us
+Insights -> /insights
+Contact -> /contact-us
+Support -> /#contact
+
+PASS  no empty or "#" hrefs
+PASS  exactly one h1
+PASS  hamburger hidden on desktop
+PASS  nav click updates URL hash  -- http://localhost:5191/#pricing
+PASS  logo link returns home
+PASS  nav hover colour = primary  -- rgb(18, 111, 186)
+PASS  Book a Demo hover = pressed blue #005695  -- rgb(0, 86, 149)
+PASS  Book a Demo -> #contact
+PASS  See Pricing -> #pricing
+PASS  Rules-driven link -> #governance
+PASS  keyboard Tab order: brand > nav x5 > CTA > hero actions  -- Round Robin |About RRD|Features|Pricing|Support|Insights|Contact Us|Book a Demo|See Pricing|Rules-driven
+PASS  focus ring visible
+PASS  no horizontal overflow @1280
+PASS  mobile nav hidden initially
+PASS  menu opens, aria-expanded=true
+PASS  Escape closes menu
+PASS  menu link closes menu + sets hash
+PASS  resize to desktop resets menu state
+PASS  no horizontal overflow @320
+PASS  no horizontal overflow @390
+PASS  no horizontal overflow @768
+PASS  no horizontal overflow @1024
+PASS  no horizontal overflow @1280
+PASS  no horizontal overflow @1440
+PASS  no horizontal overflow @1920
+PASS  section order matches Figma  -- hero,trust,problems,pillars,comparison,governance,heritage,steps,ratings,pricing,insights,contact
+PASS  footer rendered
+PASS  exactly one h1 on homepage
+PASS  all 7 in-page anchors resolve
+PASS  no href="#" or empty hrefs anywhere
+PASS  nav "Features" scrolls to #features  -- top=0
+PASS  nav "Pricing" scrolls to #pricing  -- top=0
+PASS  "See How RRD Works" scrolls to #how-it-works
+PASS  footer "RRD vs. Native Tools" scrolls to #comparison
+PASS  unconfigured destinations marked unavailable (7)  -- Read: Round Robin Distributor vs. Omni-Channel | View on AppExchange | Read more | Read more | Read more | View on AppExchange | Privacy Policy and T&C
+PASS  video buttons disabled until URLs are supplied
+PASS  video dialog closed by default
+PASS  empty submit flags all 6 required fields  -- firstName,lastName,email,phone,company,companySecondary
+PASS  focus moves to first invalid field
+PASS  error messages rendered
+PASS  invalid email rejected
+PASS  valid submit clears errors
+PASS  valid submit reports backend not connected
+PASS  nav "About RRD" opens /about-us
+PASS  About page scrolls to top on navigation
+PASS  About h1
+PASS  About document title
+PASS  About section order matches Figma  -- about-hero,who,ecosystem,solutions,team,contact
+PASS  all About images load (19)
+PASS  About: no href="#" or empty hrefs
+PASS  "Explore Mirketa" marked unavailable until URL supplied
+PASS  "Contact Our Team" scrolls to the inquiry form
+PASS  "Explore Our Solution" opens Home features
+PASS  breadcrumb "Home" returns to /
+PASS  About: no horizontal overflow @320
+PASS  About: no horizontal overflow @390
+PASS  About: no horizontal overflow @768
+PASS  About: no horizontal overflow @1024
+PASS  About: no horizontal overflow @1280
+PASS  About: no horizontal overflow @1440
+PASS  header "Contact Us" opens /contact-us
+PASS  Contact h1
+PASS  Contact document title
+PASS  Contact section order matches Figma  -- contact-hero,consult,faq
+PASS  all Contact images load (17)
+PASS  channel emails are mailto links  -- mailto:sales@roundrobindistributor.com,mailto:support@mirketa.com,mailto:partners@roundrobindistributor.com
+PASS  Contact: no href="#" or empty hrefs
+PASS  "Explore AppExchange Listing" marked unavailable until URL supplied
+PASS  FAQ: 6 questions, 2 open as designed
+PASS  FAQ: open item collapses on click
+PASS  FAQ: re-opens with keyboard
+PASS  FAQ: items without a supplied answer stay closed (aria-disabled)
+PASS  Contact form validates (6 required fields flagged)
+PASS  Contact breadcrumb "Home" returns to /
+PASS  Contact: no horizontal overflow @320
+PASS  Contact: no horizontal overflow @390
+PASS  Contact: no horizontal overflow @768
+PASS  Contact: no horizontal overflow @1024
+PASS  Contact: no horizontal overflow @1280
+PASS  Contact: no horizontal overflow @1440
+PASS  nav "Insights" opens /insights
+PASS  Insights h1
+PASS  Insights document title
+PASS  Insights section order matches Figma  -- insights-hero,insights-list
+PASS  all Insights images load (18)
+PASS  6 cards and "All Insights 18" as designed
+PASS  pagination 1 2 3 … 12, page 1 current, others disabled
+PASS  chip filters cards (Workload → 2)
+PASS  pagination hidden while filtering
+PASS  chip with no articles shows empty state
+PASS  Ctrl+K focuses search
+PASS  search filters cards ("omni" → 2)
+PASS  clearing search restores 6 cards + pagination
+PASS  Insights: no href="#" or empty hrefs
+PASS  Insights breadcrumb "Home" returns to /
+PASS  Home "See all insights" opens /insights
+PASS  Insights: no horizontal overflow @320
+PASS  Insights: no horizontal overflow @390
+PASS  Insights: no horizontal overflow @768
+PASS  Insights: no horizontal overflow @1024
+PASS  Insights: no horizontal overflow @1280
+PASS  Insights: no horizontal overflow @1440
+PASS  unknown route renders 404
+PASS  404 is noindex
+PASS  no console errors

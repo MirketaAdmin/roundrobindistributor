@@ -1,0 +1,113 @@
+/* Measured on the About frame: section 634px (y101–734). Background = photo + shapes recovered
+   from the PNG reference with the copy removed (scripts/extract-about-assets.py). */
+.about-hero {
+  position: relative;
+  overflow: hidden;
+  min-height: 634px;
+  padding: 59px 0 56px;
+  background: var(--rrd-surface) url('../../../../assets/about/about-hero-background.webp') center top / cover no-repeat;
+}
+
+.about-hero__title {
+  max-width: 640px;
+  margin-top: 23px;
+  font-size: var(--fs-hero);
+  font-weight: 800;
+  line-height: var(--lh-hero);
+  letter-spacing: -1.2px;
+  color: var(--rrd-heading);
+}
+
+.about-hero__accent {
+  color: var(--rrd-primary);
+}
+
+.about-hero__body {
+  max-width: 500px;
+  margin-top: 16px;
+  font-size: var(--fs-body-lg);
+  line-height: 29.5px;
+  color: var(--rrd-text);
+}
+
+.about-hero__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-top: 25px;
+}
+
+.about-hero__primary {
+  width: 234px; /* Figma width */
+  padding: 0;
+  box-shadow: 0 8px 20px rgba(18, 111, 186, 0.22);
+}
+
+.about-hero__secondary {
+  width: 198px; /* Figma width (200 incl. outside stroke) */
+  padding: 0;
+}
+
+.about-hero__btn-icon {
+  width: 18px;
+  height: 18px;
+}
+
+.about-hero__note {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  margin-top: 25px;
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 18px;
+  color: var(--rrd-text);
+}
+
+.about-hero__note:hover {
+  color: var(--rrd-primary);
+}
+
+.about-hero__note-icon {
+  width: 16px;
+  height: 16px;
+}
+
+.about-hero__media {
+  display: none;
+}
+
+/* ---------- No tablet/mobile frame supplied: copy, then the photo region below ---------- */
+@media (max-width: 1199px) {
+  .about-hero {
+    min-height: 0;
+    padding-bottom: 0;
+    background-image: none;
+  }
+
+  .about-hero__media {
+    display: block;
+    width: 100%;
+    max-width: 700px;
+    aspect-ratio: 700 / 560;
+    margin: 32px auto 0;
+    background: url('../../../../assets/about/about-hero-background.webp') right bottom / calc(100% * 1280 / 700) auto no-repeat;
+  }
+}
+
+@media (max-width: 639px) {
+  .about-hero__title {
+    font-size: 36px;
+    line-height: 44px;
+    letter-spacing: -0.6px;
+  }
+
+  .about-hero__body {
+    font-size: 16px;
+    line-height: 26px;
+  }
+
+  .about-hero__actions .btn {
+    flex: 1 1 100%;
+  }
+}

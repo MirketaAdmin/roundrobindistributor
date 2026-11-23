@@ -1,0 +1,62 @@
+/* Measured: surface section; 4 white cards 280px (gap 16, r12), 48px step numbers. */
+.steps {
+  padding: 60px 0 59px;
+  background: var(--rrd-surface);
+}
+
+.steps__grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 16px;
+  margin: 56px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.steps__card {
+  padding: 24px 24px 26px;
+  border-radius: var(--radius-card-sm);
+  background: var(--rrd-white);
+  box-shadow: var(--elevation-subtle);
+}
+
+.steps__number {
+  display: block;
+  font-size: 48px;
+  font-weight: 700;
+  line-height: 48px;
+  color: var(--rrd-step-number);
+}
+
+.steps__title {
+  margin-top: 16px;
+  font-size: var(--fs-h5);
+  font-weight: 600;
+  line-height: 26px;
+  color: var(--rrd-heading);
+}
+
+.steps__body {
+  max-width: 222px; /* reproduces the Figma line breaks */
+  margin-top: 8px;
+  font-size: var(--fs-body);
+  line-height: 20px;
+  color: var(--rrd-text-slate);
+}
+
+@media (max-width: 1023px) {
+  .steps__body {
+    max-width: none;
+  }
+
+  .steps__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    margin-top: 32px;
+  }
+}
+
+@media (max-width: 639px) {
+  .steps__grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}

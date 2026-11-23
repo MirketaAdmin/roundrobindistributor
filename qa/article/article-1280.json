@@ -1,0 +1,22 @@
+[
+  {
+    "name": "site-header",
+    "top": 0,
+    "height": 101
+  },
+  {
+    "name": "article-main",
+    "top": 101,
+    "height": 3143
+  },
+  {
+    "name": "faq",
+    "top": 3244,
+    "height": 727
+  },
+  {
+    "name": "site-footer",
+    "top": 3971,
+    "height": 426
+  }
+]

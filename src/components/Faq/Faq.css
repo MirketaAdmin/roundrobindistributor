@@ -1,0 +1,122 @@
+/* Measured on the Contact frame: y1398–2122; two independent 572px columns (gap 24);
+   items r14, 24px padding, 32px #e7eeff chevron disc 23px from the top
+   (17px from the right edge when open, 25px when closed — as drawn). */
+.faq {
+  padding: 60px 0 60px;
+}
+
+.faq__heading .section-heading__eyebrow {
+  margin-bottom: 7px;
+}
+
+.faq__heading .section-heading__subtitle {
+  margin-top: 7px;
+  font-size: 16px;
+  line-height: 24px;
+  color: var(--rrd-text-slate);
+}
+
+.faq__columns {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  align-items: start;
+  gap: 24px;
+  margin-top: 37px;
+}
+
+.faq__list {
+  display: grid;
+  gap: 25px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.faq__item {
+  border-radius: 14px;
+  background: var(--rrd-white);
+  box-shadow: 0 1px 3px rgba(7, 28, 54, 0.08);
+}
+
+.faq__question {
+  margin: 0;
+  font: inherit;
+}
+
+.faq__trigger {
+  position: relative;
+  display: block;
+  width: 100%;
+  min-height: 79px;
+  padding: 23px 24px 24px;
+  border: 0;
+  background: none;
+  text-align: left;
+  cursor: pointer;
+}
+
+.faq__trigger[aria-disabled='true'] {
+  cursor: default;
+}
+
+.faq__question-text {
+  display: block;
+  max-width: 474px; /* closed items: Figma line breaks match at 473–474px */
+  font-size: var(--fs-h5);
+  font-weight: 500;
+  line-height: 26px;
+  white-space: pre-line;
+  color: var(--rrd-heading);
+}
+
+.faq__chevron {
+  position: absolute;
+  top: 23px;
+  right: 24px;
+  display: grid;
+  width: 32px;
+  height: 32px;
+  place-items: center;
+  border-radius: var(--radius-pill);
+  background: var(--rrd-pill);
+}
+
+.faq__chevron img {
+  display: block;
+}
+
+.is-open .faq__chevron {
+  right: 16px;
+}
+
+.is-open .faq__trigger {
+  min-height: 0;
+  padding-bottom: 0;
+}
+
+/* open items: text box is wider by the chevron's 8px shift (Figma breaks match at 477–495px) */
+.is-open .faq__question-text {
+  max-width: 486px;
+}
+
+.faq__answer {
+  padding: 15px 24px 22px;
+}
+
+.faq__answer p {
+  max-width: 500px; /* reproduces the Figma line breaks (500–501px) */
+  font-size: 16px;
+  line-height: 24.5px;
+  color: var(--rrd-text-strong);
+}
+
+@media (max-width: 1023px) {
+  .faq__columns {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .faq__question-text {
+    max-width: none;
+    padding-right: 48px;
+  }
+}

@@ -1,0 +1,239 @@
+/* Measured on the Insights frame: section y101–547 (#f2f9fe); centred 56/64 headline;
+   filter card 1168×146 (r20, p24): search 842×48, Sort select 224×45, chips 33px (gap 5). */
+.insights-hero {
+  min-height: 447px;
+  padding: 59px 0 29px;
+  background: var(--rrd-surface);
+}
+
+.insights-hero__title {
+  margin-top: 23px;
+  font-size: var(--fs-hero);
+  font-weight: 800;
+  line-height: var(--lh-hero);
+  letter-spacing: -1.2px;
+  text-align: center;
+  color: var(--rrd-heading);
+}
+
+.insights-hero__accent {
+  color: var(--rrd-primary);
+}
+
+.insights-hero__subtitle {
+  margin-top: 14px;
+  font-size: var(--fs-body-lg);
+  line-height: 28px;
+  text-align: center;
+  color: var(--rrd-text-slate);
+}
+
+/* ---------- Filter card ---------- */
+.insights-filter {
+  margin-top: 58px;
+  padding: 23px 24px 27px;
+  border-radius: var(--radius-xl);
+  background: var(--rrd-white);
+  box-shadow: 0 1px 3px rgba(7, 28, 54, 0.06);
+}
+
+.insights-filter__row {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+.insights-filter__search {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  gap: 13px;
+  height: 47px;
+  padding: 0 7px 0 14px;
+  border-radius: 10px;
+  background: var(--rrd-lavender-card);
+  cursor: text;
+}
+
+.insights-filter__search:focus-within {
+  box-shadow: 0 0 0 2px var(--rrd-accent);
+}
+
+.insights-filter__search-icon,
+.insights-filter__kbd {
+  flex: none;
+}
+
+.insights-filter__search-icon {
+  position: relative;
+  top: -2px; /* Figma glyph sits slightly above the field's centre line */
+}
+
+.insights-filter__kbd {
+  border-radius: var(--radius-xs);
+}
+
+.insights-filter__input {
+  flex: 1;
+  min-width: 0;
+  height: 100%;
+  border: 0;
+  background: transparent;
+  font-size: 16px;
+  color: var(--rrd-heading);
+  outline: none;
+}
+
+.insights-filter__input::placeholder {
+  color: var(--rrd-text);
+  opacity: 1;
+}
+
+.insights-filter__input::-webkit-search-cancel-button {
+  cursor: pointer;
+}
+
+.insights-filter__sort {
+  display: flex;
+  flex: none;
+  align-items: center;
+  gap: 10px;
+}
+
+.insights-filter__sort-label {
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 16px;
+  color: var(--rrd-text);
+}
+
+.insights-filter__select-wrap {
+  position: relative;
+  display: block;
+}
+
+.insights-filter__select {
+  width: 224px;
+  height: 45px;
+  padding: 0 40px 0 16px;
+  border: 0;
+  border-radius: 10px;
+  background: var(--rrd-lavender-card);
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--rrd-heading);
+  appearance: none;
+  cursor: pointer;
+}
+
+.insights-filter__select:focus-visible {
+  outline: 2px solid var(--rrd-accent);
+  outline-offset: 0;
+}
+
+.insights-filter__chevron {
+  position: absolute;
+  top: 7px;
+  right: 7px;
+  pointer-events: none;
+}
+
+.insights-filter__chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px 4px;
+  margin-top: 15px;
+  white-space: nowrap;
+}
+
+.insights-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  height: 33px;
+  padding: 0 13px 0 8px;
+  border: 0;
+  border-radius: var(--radius-pill);
+  background: var(--rrd-lavender-card);
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 16px;
+  color: var(--rrd-text-strong);
+  cursor: pointer;
+}
+
+.insights-chip:hover {
+  color: var(--rrd-primary-pressed);
+}
+
+.insights-chip.is-active {
+  gap: 8px;
+  padding: 0 7px 0 16px;
+  background: var(--rrd-primary-pressed);
+  color: var(--rrd-white);
+}
+
+/* Figma chip widths (desktop frame), so every chip and glyph sits where the design has it */
+@media (min-width: 1200px) {
+  .insights-chip:nth-child(1) { width: 130px; }
+  .insights-chip:nth-child(2) { width: 172px; }
+  .insights-chip:nth-child(3) { width: 205px; }
+  .insights-chip:nth-child(4) { width: 227px; }
+  .insights-chip:nth-child(5) { width: 184px; }
+}
+
+.insights-chip__glyph {
+  display: block;
+}
+
+.insights-chip__count {
+  display: inline-flex;
+  align-items: center;
+  height: 16px;
+  padding: 0 7px;
+  border-radius: var(--radius-pill);
+  background: rgba(255, 255, 255, 0.2);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+/* ---------- No tablet/mobile frame supplied ---------- */
+@media (max-width: 1023px) {
+  .insights-filter__row {
+    flex-wrap: wrap;
+  }
+
+  .insights-filter__search {
+    flex-basis: 100%;
+  }
+}
+
+@media (max-width: 639px) {
+  .insights-hero__title {
+    font-size: 36px;
+    line-height: 44px;
+    letter-spacing: -0.6px;
+  }
+
+  .insights-hero__subtitle {
+    font-size: 16px;
+    line-height: 26px;
+  }
+
+  .insights-filter {
+    padding: 16px;
+  }
+
+  .insights-filter__kbd {
+    display: none;
+  }
+
+  .insights-filter__sort,
+  .insights-filter__select {
+    width: 100%;
+  }
+
+  .insights-filter__select-wrap {
+    flex: 1;
+  }
+}

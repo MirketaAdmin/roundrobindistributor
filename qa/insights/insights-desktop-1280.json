@@ -1,0 +1,22 @@
+[
+  {
+    "name": "site-header",
+    "top": 0,
+    "height": 101
+  },
+  {
+    "name": "insights-hero",
+    "top": 101,
+    "height": 447
+  },
+  {
+    "name": "insights-list",
+    "top": 548,
+    "height": 1277
+  },
+  {
+    "name": "site-footer",
+    "top": 1825,
+    "height": 426
+  }
+]

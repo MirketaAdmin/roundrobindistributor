@@ -1,0 +1,194 @@
+/* Measured on the Contact frame: y681–1397; copy column 540px; form card 592×626 at x632 (r24).
+   Enterprise card 540×211 (r12); sandbox card 540×194 (diagonal #015a8b → #1370b9). */
+.consult {
+  padding: 28px 0 63px;
+}
+
+.consult__inner {
+  display: grid;
+  grid-template-columns: 540px 592px;
+  justify-content: space-between;
+  align-items: start;
+}
+
+.consult__title {
+  max-width: 400px;
+  font-size: var(--fs-h2);
+  font-weight: 700;
+  line-height: var(--lh-h2);
+  letter-spacing: -0.8px;
+  color: var(--rrd-heading);
+}
+
+.consult__body {
+  max-width: 510px;
+  margin-top: 14px;
+  font-size: var(--fs-body-lg);
+  line-height: 30px;
+  color: var(--rrd-text);
+}
+
+/* ---------- Enterprise card ---------- */
+.consult__enterprise {
+  margin-top: 25px;
+  padding: 22px 24px 20px;
+  border-radius: var(--radius-card-sm);
+  background: var(--rrd-white);
+  box-shadow: 0 1px 3px rgba(7, 28, 54, 0.06);
+}
+
+.consult__enterprise-head {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+}
+
+.consult__shield {
+  display: block;
+  flex: none;
+  width: 36px;
+  height: 36px;
+  border-radius: var(--radius-control);
+  background: var(--rrd-thumb);
+}
+
+.consult__shield img {
+  display: block;
+}
+
+.consult__enterprise-title {
+  display: block;
+  font-size: var(--fs-h5);
+  font-weight: 500;
+  line-height: 22px;
+  color: var(--rrd-heading);
+}
+
+.consult__enterprise-subtitle {
+  display: block;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 16px;
+  color: var(--rrd-text-slate);
+}
+
+.consult__stats {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 9px;
+  margin: 18px 0 0;
+}
+
+.consult__stat {
+  display: flex;
+  flex-direction: column;
+  min-height: 61px;
+  padding: 10px 11px 8px;
+  border-radius: var(--radius-control);
+  background: var(--rrd-lavender-card);
+}
+
+.consult__stat-value {
+  order: -1; /* value above label, as drawn */
+  margin: 0;
+  font-size: var(--fs-h5);
+  font-weight: 700;
+  line-height: 22px;
+}
+
+.consult__stat-value--blue { color: var(--rrd-primary-pressed); }
+.consult__stat-value--green { color: var(--rrd-success); }
+
+.consult__stat-label {
+  margin-top: 3px;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 16px;
+  color: var(--rrd-text-strong);
+}
+
+.consult__note {
+  margin-top: 12px;
+  font-size: var(--fs-body);
+  line-height: 20px;
+  color: var(--rrd-text-slate);
+}
+
+/* ---------- Sandbox card ---------- */
+.consult__sandbox {
+  margin-top: 25px;
+  padding: 21px 24px 21px;
+  border-radius: var(--radius-card-sm);
+  background: linear-gradient(135deg, #015a8b 0%, #1370b9 100%);
+  color: var(--rrd-white);
+}
+
+.consult__sandbox-title {
+  font-size: var(--fs-h5);
+  font-weight: 600;
+  line-height: 24px;
+  color: var(--rrd-white);
+}
+
+.consult__sandbox-body {
+  max-width: 492px;
+  margin-top: 10px;
+  font-size: var(--fs-body);
+  line-height: 20px;
+  white-space: pre-line;
+  color: rgba(255, 255, 255, 0.92);
+}
+
+.consult__sandbox-cta {
+  width: 254px;
+  height: 39px;
+  margin-top: 19px;
+  padding: 0;
+  border-radius: var(--radius-xs);
+  color: var(--rrd-primary-pressed);
+}
+
+/* ---------- Form card ---------- */
+.consult__form-card {
+  scroll-margin-top: 16px;
+  padding: 29px 30px 32px;
+  border-radius: var(--radius-2xl);
+  background: var(--rrd-white);
+  box-shadow: 0 20px 40px rgba(7, 28, 54, 0.12);
+}
+
+/* Contact frame: 31px between the message field and the submit row (Home frame: 16px) */
+.consult__form-card .inquiry__footer {
+  margin-top: 31px;
+}
+
+@media (max-width: 1199px) {
+  .consult__inner {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 40px;
+  }
+
+  .consult__copy,
+  .consult__form-card {
+    max-width: 640px;
+  }
+}
+
+@media (max-width: 639px) {
+  .consult__title {
+    font-size: 30px;
+    line-height: 38px;
+  }
+
+  .consult__form-card {
+    padding: 20px;
+  }
+
+  .consult__stats {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .consult__sandbox-cta {
+    width: 100%;
+  }
+}

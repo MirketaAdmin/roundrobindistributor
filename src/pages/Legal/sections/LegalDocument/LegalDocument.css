@@ -1,0 +1,395 @@
+/* Measured on the legal frame: 365px Document Index card (x56) + 766px content column (x458);
+   white cards (r16, padding 32) stacked 33px apart, 41px between Part I and Part II;
+   16/26 #476274 body copy; "SEC." codes in #005695; #f0f3ff tiles (r12); #f2f9fe callout (r12). */
+.legal-doc {
+  margin-top: 32px;
+}
+
+.legal-doc__inner {
+  display: grid;
+  grid-template-columns: 365px 766px;
+  justify-content: space-between;
+  align-items: start;
+}
+
+.legal-card,
+.legal-index {
+  border-radius: var(--radius-card);
+  background: var(--rrd-white);
+  box-shadow: 0 1px 3px rgba(7, 28, 54, 0.05);
+}
+
+/* ---------- Document index ---------- */
+.legal-index {
+  padding: 25px 24px 31px;
+}
+
+.legal-index__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.legal-index__title {
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 24px;
+  color: var(--rrd-heading);
+}
+
+.legal-index__count {
+  padding: 1px 11px 2px;
+  border-radius: var(--radius-pill);
+  background: var(--rrd-pill);
+  font-size: 11px;
+  font-weight: 700;
+  line-height: 16px;
+  color: var(--rrd-text-slate);
+}
+
+.legal-index__search {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  height: 36px;
+  margin-top: 30px;
+  padding: 0 12px;
+  border-radius: var(--radius-control);
+  background: var(--rrd-lavender-card);
+  cursor: text;
+}
+
+.legal-index__search:focus-within {
+  box-shadow: 0 0 0 2px var(--rrd-accent);
+}
+
+.legal-index__input {
+  flex: 1;
+  min-width: 0;
+  height: 100%;
+  border: 0;
+  background: transparent;
+  font-size: 14px;
+  color: var(--rrd-heading);
+  outline: none;
+}
+
+.legal-index__input::placeholder {
+  color: #717782;
+  opacity: 1;
+}
+
+.legal-index__group {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  margin-top: 18px;
+  margin-left: -2px; /* glyph image carries a 2px margin */
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 16px;
+  letter-spacing: 0.6px;
+  text-transform: uppercase;
+  color: var(--rrd-primary-pressed);
+}
+
+.legal-index__list {
+  display: grid;
+  gap: 18px;
+  margin: 15px 0 0;
+  padding: 0 0 0 11px;
+  list-style: none;
+}
+
+.legal-index__link {
+  display: block;
+  font-size: 14px;
+  line-height: 20px;
+  white-space: pre-line;
+  color: var(--rrd-text-slate);
+}
+
+a.legal-index__link:hover {
+  color: var(--rrd-primary);
+}
+
+.legal-index__link[aria-disabled='true'] {
+  cursor: default;
+}
+
+.legal-index__empty {
+  margin-top: 16px;
+  font-size: 13px;
+  color: var(--rrd-muted);
+}
+
+/* ---------- Content column ---------- */
+.legal-doc__content,
+.legal-part {
+  display: grid;
+  gap: 33px;
+}
+
+.legal-part__intro {
+  margin-bottom: -1px; /* drawn 32px below the part intro, 33px between sections */
+}
+
+.legal-doc__content {
+  gap: 41px;
+}
+
+.legal-card {
+  scroll-margin-top: 24px;
+  padding: 32px 31px 32px 32px;
+}
+
+.legal-part__eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 2px;
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 16px;
+  letter-spacing: 0.6px;
+  text-transform: uppercase;
+  color: var(--rrd-text-slate);
+}
+
+.legal-part__pill {
+  flex: none;
+  padding: 2px 10px;
+  white-space: nowrap;
+  border-radius: var(--radius-pill);
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+.legal-part__pill--light {
+  background: var(--rrd-tint);
+  color: var(--rrd-primary-pressed);
+}
+
+.legal-part__pill--strong {
+  background: var(--rrd-sky);
+  color: #4d687a;
+}
+
+.legal-part__title {
+  margin-top: 14px;
+  font-size: 40px;
+  font-weight: 700;
+  line-height: 48px;
+  letter-spacing: -0.8px;
+  white-space: pre-line;
+  color: var(--rrd-heading);
+}
+
+.legal-part__body,
+.legal-section__body {
+  font-size: 16px;
+  line-height: 26px;
+  letter-spacing: 0.2px; /* Manrope tracking that matches the Figma line lengths */
+  white-space: pre-line;
+  color: var(--rrd-text-slate);
+}
+
+.legal-part__body {
+  margin-top: 12px;
+}
+
+.legal-section__head {
+  margin-top: -1px;
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.legal-section__title {
+  font-size: 22px;
+  font-weight: 600;
+  line-height: 30px;
+  color: var(--rrd-heading);
+}
+
+/* Figma sets these codes in a monospace face; Manrope only (client decision), tracked to match */
+.legal-section__code {
+  flex: none;
+  font-size: 11px;
+  font-weight: 700;
+  line-height: 16px;
+  letter-spacing: 2px;
+  color: var(--rrd-primary-pressed);
+}
+
+.legal-section__body {
+  margin-top: 16px;
+}
+
+.legal-section__body strong {
+  font-weight: 700;
+}
+
+.legal-callout {
+  display: flex;
+  gap: 12px;
+  margin-top: 18px;
+  padding: 16px 16px 17px 13px;
+  border-radius: var(--radius-card-sm);
+  background: var(--rrd-surface);
+}
+
+.legal-callout__icon {
+  flex: none;
+  margin-top: -2px;
+}
+
+.legal-callout p {
+  font-size: 14px;
+  line-height: 20px;
+  white-space: pre-line;
+  color: var(--rrd-heading);
+}
+
+.legal-callout__title {
+  display: block;
+  font-weight: 700;
+}
+
+.legal-callout__body {
+  display: block;
+  margin-top: 1px;
+  letter-spacing: 0.25px; /* Manrope tracking that matches the Figma line lengths */
+}
+
+.legal-guarantees,
+.legal-licenses {
+  display: grid;
+  gap: 17px;
+  margin: 25px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.legal-guarantees {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  align-items: start;
+}
+
+.legal-licenses {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.legal-tile {
+  padding: 15px 16px 16px;
+  border-radius: var(--radius-card-sm);
+  background: var(--rrd-lavender-card);
+}
+
+.legal-guarantee {
+  padding: 13px 16px 16px 13px; /* glyph images carry a 2px margin */
+}
+
+.legal-guarantee {
+  min-height: 210px; /* drawn heights */
+}
+
+.legal-guarantee:nth-child(3) {
+  min-height: 206px;
+}
+
+.legal-guarantee__icon {
+  display: block;
+}
+
+.legal-tile__title {
+  margin-top: 7px;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 20px;
+  color: var(--rrd-heading);
+}
+
+.legal-license .legal-tile__title {
+  margin-top: 0;
+}
+
+.legal-license .legal-tile__body {
+  margin-top: 8px;
+}
+
+.legal-licenses {
+  margin-bottom: 8px; /* drawn 39px above the card edge */
+}
+
+.legal-tile__body {
+  margin-top: 7px;
+  font-size: 14px;
+  line-height: 20px;
+  white-space: pre-line;
+  color: var(--rrd-text-slate);
+}
+
+.legal-section__footnote {
+  margin-top: 27px;
+  font-size: 14px;
+  line-height: 23.5px;
+  letter-spacing: 0.2px; /* Manrope tracking that matches the Figma line lengths */
+  white-space: pre-line;
+  color: var(--rrd-text-slate);
+}
+
+/* ---------- No tablet/mobile frame supplied ---------- */
+@media (max-width: 1199px) {
+  .legal-doc__inner {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 32px;
+  }
+
+  .legal-part__title,
+  .legal-part__body,
+  .legal-section__body,
+  .legal-callout p,
+  .legal-tile__body,
+  .legal-section__footnote,
+  .legal-index__link {
+    white-space: normal;
+  }
+
+  .legal-guarantee,
+  .legal-guarantee:nth-child(3) {
+    min-height: 0;
+  }
+}
+
+@media (max-width: 767px) {
+  .legal-guarantees,
+  .legal-licenses {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@media (max-width: 639px) {
+  .legal-card,
+  .legal-index {
+    padding: 24px 20px;
+  }
+
+  .legal-part__title {
+    font-size: 30px;
+    line-height: 38px;
+    letter-spacing: -0.4px;
+  }
+
+  .legal-section__head {
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .legal-section__title {
+    font-size: 20px;
+    line-height: 28px;
+  }
+}

@@ -1,0 +1,282 @@
+/* Measured on the article frame (sidebar x852, 372px):
+   Latest Blogs card y201–1121 (r16) with a 342px #f2f9fe featured card and 90px list rows (48px thumbs);
+   inquiry card y1149–1797 (15px padding, 165px inputs); sandbox card y1824–2016. */
+.latest,
+.aside-inquiry {
+  border: 1px solid #e4eaf1;
+  border-radius: var(--radius-card);
+  background: var(--rrd-white);
+}
+
+/* ---------- Latest Blogs ---------- */
+.latest {
+  padding: 0 14px 28px;
+}
+
+.latest__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 51px;
+  padding-top: 3px;
+  border-bottom: 1px solid #eef2f6;
+}
+
+.latest__title {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 22px;
+  color: var(--rrd-heading);
+}
+
+.latest__title img,
+.latest__all img {
+  display: block;
+}
+
+.latest__all {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--rrd-primary-pressed);
+}
+
+.latest__all:hover {
+  text-decoration: underline;
+}
+
+.latest-featured {
+  margin-top: 16px;
+  padding: 17px 17px 24px 16px;
+  border-radius: var(--radius-card-sm);
+  background: var(--rrd-surface);
+}
+
+.latest-featured__image {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: var(--radius-control);
+}
+
+.latest-featured__meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 17px;
+  font-size: 12px;
+  line-height: 16px;
+}
+
+.latest-featured__time {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  color: var(--rrd-muted);
+}
+
+.latest-featured__category {
+  font-weight: 700;
+  color: var(--rrd-primary-pressed);
+}
+
+.latest-featured__title {
+  margin-top: 11px;
+  font-size: 22px;
+  font-weight: 600;
+  line-height: 30px;
+  color: var(--rrd-heading);
+}
+
+.latest-featured__link {
+  color: inherit;
+}
+
+.latest__list {
+  display: grid;
+  gap: 37px;
+  margin: 23px 0 0;
+  padding: 0 0 0 11px;
+  list-style: none;
+}
+
+.latest-item {
+  display: flex;
+  gap: 13px;
+}
+
+.latest-item__thumb {
+  flex: none;
+  width: 48px;
+  height: 48px;
+  margin-top: 1px;
+  overflow: hidden;
+  border-radius: var(--radius-control);
+}
+
+/* thumbnails not supplied yet render as the drawn empty frame */
+.latest-item__thumb:empty {
+  border: 1px solid #eef2f6;
+}
+
+.latest-item__thumb img {
+  display: block;
+}
+
+.latest-item__text {
+  min-width: 0;
+  padding-top: 1px;
+}
+
+/* Titles are clipped at the column edge, as drawn */
+.latest-item__title {
+  display: block;
+  width: 146px;
+  overflow: hidden;
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 16px;
+  white-space: pre;
+  color: var(--rrd-heading);
+}
+
+.latest-item__meta {
+  display: block;
+  margin-top: 4px;
+  font-size: 12px;
+  line-height: 16px;
+  color: var(--rrd-muted);
+}
+
+.latest-item__dot {
+  margin: 0 7px;
+}
+
+/* ---------- Inquiry card ---------- */
+.aside-inquiry {
+  scroll-margin-top: 16px;
+  margin-top: 23px;
+  padding: 16px 15px 17px;
+  box-shadow: 0 4px 12px rgba(7, 28, 54, 0.06);
+}
+
+.aside-inquiry__title {
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 28px;
+  color: #002f5a;
+}
+
+.aside-inquiry__subtitle {
+  max-width: 290px; /* Figma wraps before "Architect." */
+  margin-top: 3px;
+  font-size: 12px;
+  line-height: 16px;
+  color: var(--rrd-muted);
+}
+
+.inquiry--compact .inquiry__notice {
+  align-items: flex-start;
+  min-height: 81px;
+  margin-top: 20px;
+  padding: 14px 15px;
+}
+
+.inquiry--compact .inquiry__notice-icon {
+  width: 32px;
+  height: 32px;
+}
+
+.inquiry--compact .inquiry__notice-title {
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 16px;
+}
+
+.inquiry--compact .inquiry__notice-body {
+  font-size: 12px;
+  line-height: 16px;
+}
+
+.inquiry--compact .inquiry__grid {
+  gap: 13px 12px;
+  margin-top: 20px;
+}
+
+.inquiry--compact .inquiry__input {
+  height: 45px;
+  font-size: 12px;
+}
+
+.inquiry--compact .inquiry__textarea {
+  height: 78px;
+  padding: 14px 40px 14px 15px;
+  line-height: 16px;
+}
+
+.inquiry--compact .inquiry__footer {
+  margin-top: 22px;
+}
+
+.inquiry--compact .inquiry__privacy {
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.inquiry--compact .inquiry__submit {
+  width: 129px;
+  height: 44px;
+  font-size: 13px;
+  line-height: 16px;
+}
+
+/* label wraps onto two lines, as drawn */
+.inquiry--compact .inquiry__submit span {
+  max-width: 56px;
+  white-space: normal;
+  text-align: center;
+}
+
+/* ---------- Sandbox card ---------- */
+.aside-sandbox {
+  margin-top: 23px;
+  padding: 21px 24px 22px;
+  border-radius: var(--radius-card-sm);
+  background: linear-gradient(135deg, #015a8b 0%, #1370b9 100%);
+  color: var(--rrd-white);
+}
+
+.aside-sandbox__title {
+  font-size: var(--fs-h5);
+  font-weight: 600;
+  line-height: 24px;
+  color: var(--rrd-white);
+}
+
+.aside-sandbox__body {
+  max-width: 290px; /* Figma wraps before "required," */
+  margin-top: 10px;
+  font-size: var(--fs-body);
+  line-height: 20px;
+  color: rgba(255, 255, 255, 0.92);
+}
+
+.aside-sandbox__cta {
+  width: 254px;
+  height: 39px;
+  margin-top: 19px;
+  padding: 0;
+  border-radius: var(--radius-xs);
+  color: var(--rrd-primary-pressed);
+}
+
+@media (max-width: 639px) {
+  .aside-sandbox__cta {
+    width: 100%;
+  }
+}

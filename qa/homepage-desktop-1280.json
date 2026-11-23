@@ -1,0 +1,72 @@
+[
+  {
+    "name": "site-header",
+    "top": 0,
+    "height": 101
+  },
+  {
+    "name": "hero",
+    "top": 101,
+    "height": 714
+  },
+  {
+    "name": "trust",
+    "top": 815,
+    "height": 212
+  },
+  {
+    "name": "problems",
+    "top": 1027,
+    "height": 775
+  },
+  {
+    "name": "pillars",
+    "top": 1802,
+    "height": 1108
+  },
+  {
+    "name": "comparison",
+    "top": 2910,
+    "height": 718
+  },
+  {
+    "name": "governance",
+    "top": 3628,
+    "height": 895
+  },
+  {
+    "name": "heritage",
+    "top": 4523,
+    "height": 549
+  },
+  {
+    "name": "steps",
+    "top": 5072,
+    "height": 479
+  },
+  {
+    "name": "ratings",
+    "top": 5551,
+    "height": 944
+  },
+  {
+    "name": "pricing",
+    "top": 6495,
+    "height": 766
+  },
+  {
+    "name": "insights",
+    "top": 7261,
+    "height": 761
+  },
+  {
+    "name": "contact",
+    "top": 8022,
+    "height": 732
+  },
+  {
+    "name": "site-footer",
+    "top": 8754,
+    "height": 426
+  }
+]

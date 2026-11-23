@@ -1,0 +1,127 @@
+/* Measured on the 1280px homepage frame: 101px bar, logo 74×61 at x56, nav gap 40px. */
+.site-header {
+  position: relative;
+  z-index: 20;
+  background: var(--rrd-white);
+}
+
+.site-header__inner {
+  display: flex;
+  align-items: center;
+  height: 101px;
+}
+
+.site-header__nav {
+  display: flex;
+  align-items: center;
+  gap: 40px;
+  margin-left: auto;
+}
+
+.site-header__links {
+  display: flex;
+  align-items: center;
+  gap: 40px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.site-header__link {
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 20px;
+  letter-spacing: -0.3px; /* Manrope tracked to the measured Figma label widths */
+  color: var(--rrd-muted);
+  transition: color 0.15s ease;
+}
+
+.site-header__link:hover {
+  color: var(--rrd-primary);
+}
+
+.site-header__cta {
+  height: 35px;
+  font-weight: 500; /* Figma label is Medium, lighter than the shared button default */
+}
+
+.site-header__toggle {
+  display: none;
+}
+
+/* ---------- Tablet & mobile: no Figma frame supplied — desktop bar collapses to a menu ---------- */
+@media (max-width: 1023px) {
+  .site-header__inner {
+    height: 80px;
+  }
+
+  .site-header__toggle {
+    display: inline-flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 5px;
+    width: 44px;
+    height: 44px;
+    margin-left: auto;
+    padding: 0 11px;
+    border: 1px solid var(--rrd-border);
+    border-radius: var(--radius-control);
+    background: var(--rrd-white);
+    cursor: pointer;
+  }
+
+  .site-header__toggle-bar {
+    display: block;
+    height: 2px;
+    border-radius: 2px;
+    background: var(--rrd-ink);
+    transition: transform 0.2s ease, opacity 0.2s ease;
+  }
+
+  .is-open .site-header__toggle-bar:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  .is-open .site-header__toggle-bar:nth-child(2) { opacity: 0; }
+  .is-open .site-header__toggle-bar:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+  .site-header__nav {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    display: none;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 16px;
+    margin: 0;
+    padding: 8px var(--container-gutter) 24px;
+    background: var(--rrd-white);
+    border-top: 1px solid var(--rrd-border);
+    box-shadow: var(--elevation-raised);
+  }
+
+  .is-open .site-header__nav {
+    display: flex;
+  }
+
+  .site-header__links {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+  }
+
+  .site-header__link {
+    display: block;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--rrd-border);
+  }
+
+  .site-header__cta {
+    width: 100%;
+    height: 44px;
+  }
+}
+
+@media (max-width: 639px) {
+  .site-header__inner {
+    height: 72px;
+  }
+}

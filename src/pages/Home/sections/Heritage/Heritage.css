@@ -1,0 +1,132 @@
+/* Measured: copy column ~650px; partner card 468×289 (#f0f3ff, 1px border), vertically centred. */
+.heritage {
+  padding: 60px 0 66px;
+  background: var(--rrd-white);
+}
+
+.heritage__inner {
+  display: grid;
+  grid-template-columns: minmax(0, 650px) 468px;
+  justify-content: space-between;
+  align-items: center;
+  gap: 48px;
+}
+
+.heritage__title {
+  font-size: var(--fs-h2);
+  font-weight: 700;
+  line-height: var(--lh-h2);
+  letter-spacing: -0.8px;
+  color: var(--rrd-heading);
+}
+
+.heritage__lead {
+  max-width: 640px; /* reproduces the Figma line breaks */
+  margin-top: 14px;
+  font-size: var(--fs-body-lg);
+  line-height: 29.5px;
+  color: var(--rrd-text-strong);
+}
+
+.heritage__body {
+  margin-top: 16px;
+  font-size: 16px;
+  line-height: 26px;
+  color: var(--rrd-text);
+}
+
+.heritage__points {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-auto-rows: 20px; /* Figma rows sit on a 41px pitch; two-line items overflow evenly */
+  align-items: center;
+  gap: 21px 24px;
+  margin: 28px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.heritage__point {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 20px;
+  color: var(--rrd-heading);
+}
+
+.heritage__point:last-child {
+  grid-column: 1 / -1;
+}
+
+.heritage__point-icon {
+  flex: none;
+  width: 18px;
+  height: 18px;
+  color: var(--rrd-primary-pressed);
+}
+
+.heritage__card {
+  padding: 48px 40px 36px;
+  border: 1px solid var(--rrd-border);
+  border-radius: var(--radius-2xl);
+  background: var(--rrd-lavender-card);
+  text-align: center;
+}
+
+.heritage__logo {
+  display: block;
+  width: 128px;
+  height: 105px;
+  margin: 0 auto;
+}
+
+.heritage__card-title {
+  margin-top: 27px;
+  font-size: var(--fs-h5);
+  font-weight: 600;
+  line-height: 26px;
+  color: var(--rrd-heading);
+}
+
+.heritage__card-body {
+  margin-top: 4px;
+  font-size: var(--fs-body);
+  line-height: 20px;
+  color: var(--rrd-text);
+}
+
+@media (max-width: 1199px) {
+  .heritage__inner {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .heritage__card {
+    max-width: 468px;
+  }
+}
+
+@media (max-width: 639px) {
+  .heritage__title {
+    font-size: 30px;
+    line-height: 38px;
+  }
+
+  .heritage__points {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+/* Figma section height (549px). Fractional line heights would otherwise leave every later
+   section on a half pixel, which blurs images rendered further down the page. */
+@media (min-width: 1200px) {
+  .heritage {
+    min-height: 549px;
+  }
+
+  .heritage__card {
+    align-self: start;
+    margin-top: 70px; /* card top sits 130px below the section top */
+  }
+}

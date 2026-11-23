@@ -1,0 +1,45 @@
+/* Measured on the About frame: 14px, "Home" #5b6b7a with a 16px house icon, current page #071c36. */
+.breadcrumb__list {
+  display: flex;
+  align-items: center;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-size: 14px;
+  line-height: 20px;
+}
+
+.breadcrumb__home {
+  display: inline-flex;
+  align-items: center;
+  gap: 1px;
+  color: var(--rrd-text);
+}
+
+.breadcrumb__home:hover {
+  color: var(--rrd-primary);
+}
+
+.breadcrumb__icon {
+  margin-left: -2px;
+}
+
+.breadcrumb__current {
+  font-weight: 500;
+  color: var(--rrd-heading);
+}
+
+.breadcrumb__current::before {
+  content: '/';
+  margin: 0 9px;
+  font-weight: 400;
+  color: #c2cad3;
+}
+
+.breadcrumb__current-link {
+  color: inherit;
+}
+
+.breadcrumb__current-link:hover {
+  color: var(--rrd-primary);
+}

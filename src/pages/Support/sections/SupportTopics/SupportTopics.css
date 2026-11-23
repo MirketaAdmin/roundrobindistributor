@@ -1,0 +1,133 @@
+/* Measured on the Support frame: section y719–2191 (white); category heading (glyph + 28px title,
+   14px subtitle) above its list; 74px #f7f9fe accordion rows (r12) on an 82px pitch;
+   18px/500 questions, 16/24 #414751 answer; 68px between a list and the next heading. */
+.support-topics {
+  min-height: 1473px;
+  padding: 31px 0 59px;
+  background: var(--rrd-white);
+}
+
+.support-topic + .support-topic {
+  margin-top: 57px;
+}
+
+.support-topic {
+  scroll-margin-top: 24px;
+}
+
+.support-topic__head {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+.support-topic__icon {
+  display: block;
+  flex: none;
+  margin: 13px 0 0 -2px; /* glyph images carry a 2px margin */
+}
+
+.support-topic__title {
+  font-size: var(--fs-h3);
+  font-weight: 600;
+  line-height: 34px;
+  letter-spacing: -0.4px;
+  color: var(--rrd-heading);
+}
+
+.support-topic__subtitle {
+  margin-top: 2px;
+  font-size: 14px;
+  line-height: 16px;
+  letter-spacing: 0.15px;
+  color: var(--rrd-text-strong);
+}
+
+.support-topic__list {
+  display: grid;
+  gap: 8px;
+  margin: 27px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.support-q {
+  border-radius: var(--radius-card-sm);
+  background: #f7f9fe;
+  box-shadow: 0 1px 2px rgba(7, 28, 54, 0.04);
+}
+
+.support-q__heading {
+  margin: 0;
+  font: inherit;
+}
+
+.support-q__trigger {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  width: 100%;
+  min-height: 74px;
+  padding: 0 20px 0 24px;
+  border: 0;
+  background: none;
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 26px;
+  text-align: left;
+  color: var(--rrd-heading);
+  cursor: pointer;
+}
+
+.support-q__trigger[aria-disabled='true'] {
+  cursor: default;
+}
+
+.support-q__trigger:focus-visible {
+  outline: 2px solid var(--rrd-accent);
+  outline-offset: -2px;
+  border-radius: var(--radius-card-sm);
+}
+
+.support-q__chevron {
+  display: block;
+  flex: none;
+}
+
+.support-q__answer {
+  padding: 0 24px 24px;
+}
+
+.support-q__answer p {
+  font-size: 16px;
+  line-height: 24px;
+  letter-spacing: 0.2px; /* Manrope tracking that matches the Figma line lengths */
+  white-space: pre-line;
+  color: var(--rrd-text-strong);
+}
+
+@media (max-width: 1023px) {
+  .support-topics {
+    min-height: 0;
+  }
+
+  .support-q__answer p {
+    white-space: normal;
+  }
+}
+
+@media (max-width: 639px) {
+  .support-topic__title {
+    font-size: 24px;
+    line-height: 30px;
+  }
+
+  .support-q__trigger {
+    padding: 16px 16px 16px 20px;
+  }
+
+  .support-q__answer {
+    padding: 0 20px 20px;
+  }
+}

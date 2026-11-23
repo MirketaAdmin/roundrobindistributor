@@ -1,0 +1,77 @@
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border: 1px solid transparent;
+  border-radius: var(--radius-control);
+  font-family: var(--font-body);
+  font-weight: 600;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+}
+
+.btn--md {
+  height: 36px;
+  padding: 0 24px;
+  font-size: 15px;
+  line-height: 20px;
+}
+
+.btn--lg {
+  height: 44px;
+  padding: 0 36px;
+  font-size: 15px;
+  line-height: 20px;
+}
+
+.btn--primary {
+  background: var(--rrd-primary);
+  color: var(--rrd-white);
+}
+
+.btn--primary:hover {
+  background: var(--rrd-primary-pressed);
+}
+
+/* Hero "See Pricing": white fill, primary label, primary @30% hairline drawn outside
+   the box (Figma outside stroke — measured 2px taller than the primary button) */
+.btn--secondary {
+  background: var(--rrd-white);
+  border: 0;
+  box-shadow: 0 0 0 1px rgba(18, 111, 186, 0.3);
+  margin: 0 1px;
+  color: var(--rrd-primary);
+}
+
+.btn--secondary:hover {
+  box-shadow: 0 0 0 1px var(--rrd-primary);
+}
+
+/* White fill on dark/coloured sections (Contact "Book a Demo", testimonial "View on AppExchange") */
+.btn--white {
+  background: var(--rrd-white);
+  color: var(--rrd-heading);
+}
+
+.btn--white:hover {
+  background: var(--rrd-surface);
+}
+
+/* Hairline white outline on the Slate contact section */
+.btn--outline-light {
+  background: transparent;
+  border-color: rgba(255, 255, 255, 0.85);
+  color: var(--rrd-white);
+}
+
+.btn--outline-light:hover {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+/* Destination not supplied yet: keeps the designed look, signals unavailability */
+.btn.is-pending {
+  cursor: not-allowed;
+}
+

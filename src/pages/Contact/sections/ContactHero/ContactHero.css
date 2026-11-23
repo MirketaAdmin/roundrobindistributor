@@ -1,0 +1,116 @@
+/* Measured on the Contact frame: y101–680; centred 56/64 headline; 3 channel cards 373×226 (gap 26, r14). */
+.contact-hero {
+  padding: 59px 0 28px;
+}
+
+.contact-hero__title {
+  margin-top: 23px;
+  font-size: var(--fs-hero);
+  font-weight: 800;
+  line-height: var(--lh-hero);
+  letter-spacing: -1.2px;
+  text-align: center;
+  color: var(--rrd-heading);
+}
+
+.contact-hero__accent {
+  color: var(--rrd-primary);
+}
+
+.contact-hero__body {
+  max-width: 680px;
+  margin: 15px auto 0;
+  font-size: var(--fs-body-lg);
+  line-height: 28.5px;
+  text-align: center;
+  color: var(--rrd-text-slate);
+}
+
+.contact-hero__channels {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 26px;
+  margin: 56px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.contact-hero__channel {
+  display: flex;
+  flex-direction: column;
+  min-height: 226px;
+  padding: 23px 24px 24px;
+  border-radius: 14px;
+  background: var(--rrd-white);
+  box-shadow: 0 1px 3px rgba(7, 28, 54, 0.06);
+}
+
+.contact-hero__tile {
+  display: block;
+  width: 44px;
+  height: 44px;
+  border-radius: 10px;
+  background: var(--rrd-tint);
+}
+
+.contact-hero__tile img {
+  display: block;
+}
+
+.contact-hero__channel-title {
+  margin-top: 12px;
+  font-size: var(--fs-h5);
+  font-weight: 500;
+  line-height: 26px;
+  color: var(--rrd-heading);
+}
+
+.contact-hero__channel-body {
+  margin-top: 8px;
+  font-size: var(--fs-body);
+  line-height: 20px;
+  color: var(--rrd-text-slate);
+}
+
+.contact-hero__email {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: auto;
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 16px;
+  color: var(--rrd-primary-pressed);
+}
+
+.contact-hero__email img {
+  margin-right: -3px; /* arrow crop includes 3px of its 16px box past the ink */
+}
+
+.contact-hero__email:hover {
+  color: var(--rrd-primary);
+}
+
+@media (max-width: 1023px) {
+  .contact-hero__channels {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .contact-hero__email {
+    margin-top: 24px;
+  }
+}
+
+@media (max-width: 639px) {
+  .contact-hero__title {
+    font-size: 36px;
+    line-height: 44px;
+    letter-spacing: -0.6px;
+  }
+
+  .contact-hero__body {
+    font-size: 16px;
+    line-height: 26px;
+  }
+}
