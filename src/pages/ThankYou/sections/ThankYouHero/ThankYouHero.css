@@ -1,0 +1,155 @@
+/* Measured on the Thank You frame: section y101–709; Surface fading to white by the bottom, with a soft
+   #e7f2fa glow behind the badge; 80px halo (green 15%) + 56px green disc + 28px blue "verified" disc;
+   13px tracked eyebrow; 56/64 headline; 18/28 body; 48px buttons (211 / 168 wide, gap 18). */
+.thanks-hero {
+  min-height: 609px;
+  padding: 88px 0 61px;
+  background:
+    radial-gradient(ellipse 340px 330px at 50% 129px, #e7f2fa 55%, rgba(231, 242, 250, 0) 100%),
+    linear-gradient(180deg, var(--rrd-surface) 0, #f4f9fe 320px, #f7fbfe 460px, #fbfdfe 540px, #fefeff 600px, var(--rrd-white) 100%);
+}
+
+.thanks-hero__inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+/* ---------- Badge ---------- */
+.thanks-badge {
+  position: relative;
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: rgba(23, 163, 107, 0.15);
+}
+
+.thanks-badge__check,
+.thanks-badge__verified {
+  position: absolute;
+  display: block;
+  border-radius: 50%;
+}
+
+.thanks-badge__check {
+  top: 12px;
+  left: 12px;
+}
+
+.thanks-badge__verified {
+  top: 56px;
+  left: 56px;
+}
+
+/* ---------- Copy ---------- */
+.thanks-hero__eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 30px;
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 16px;
+  letter-spacing: 1.3px;
+  text-transform: uppercase;
+  color: var(--rrd-primary);
+}
+
+.thanks-hero__eyebrow::before {
+  content: '';
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--rrd-success);
+}
+
+.thanks-hero__title {
+  margin-top: 22px;
+  font-size: var(--fs-hero);
+  font-weight: 800;
+  line-height: var(--lh-hero);
+  letter-spacing: -1.9px;
+  white-space: pre-line;
+  color: var(--rrd-heading);
+}
+
+.thanks-hero__body {
+  margin-top: 15px;
+  font-size: var(--fs-body-lg);
+  line-height: 28px;
+  letter-spacing: 0.27px; /* Manrope tracking that matches the Figma line lengths */
+  white-space: pre-line;
+  color: var(--rrd-text);
+}
+
+.thanks-hero__actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 18px;
+  margin-top: 37px;
+  padding-right: 3px; /* the drawn pair is centred 1.5px left of the page centre */
+}
+
+.thanks-hero__btn {
+  height: 48px;
+  gap: 8px;
+  padding: 0;
+  border-radius: 10px;
+}
+
+.thanks-hero__btn img {
+  display: block;
+}
+
+.thanks-hero__btn--home {
+  width: 211px;
+  box-shadow: 0 6px 14px rgba(7, 28, 54, 0.12);
+}
+
+.thanks-hero__btn--book {
+  width: 168px;
+  color: var(--rrd-primary);
+  box-shadow: 0 2px 8px rgba(7, 28, 54, 0.06);
+}
+
+/* ---------- No tablet/mobile frame supplied ---------- */
+@media (max-width: 1023px) {
+  .thanks-hero {
+    min-height: 0;
+  }
+
+  .thanks-hero__body {
+    white-space: normal;
+  }
+}
+
+@media (max-width: 639px) {
+  .thanks-hero {
+    padding: 56px 0 48px;
+  }
+
+  .thanks-hero__title {
+    font-size: 36px;
+    line-height: 44px;
+    letter-spacing: -0.6px;
+    white-space: normal;
+  }
+
+  .thanks-hero__body {
+    font-size: 16px;
+    line-height: 26px;
+  }
+
+  .thanks-hero__actions {
+    flex-direction: column;
+    align-items: stretch;
+    width: 100%;
+  }
+
+  .thanks-hero__btn--home,
+  .thanks-hero__btn--book {
+    width: 100%;
+  }
+}

@@ -1,23 +1,26 @@
 import { useMemo, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { DOCUMENT_INDEX, LEGAL_PARTS } from '../../../../data/legal.js';
 import { scrollToId } from '../../../../utils/scroll.js';
 import searchIcon from '../../../../assets/legal/icon-search.png';
 import shieldIcon from '../../../../assets/legal/icon-shield.png';
-import calloutIcon from '../../../../assets/legal/icon-callout-verified.png';
-import noInterception from '../../../../assets/legal/icon-no-interception.png';
-import zeroWebhooks from '../../../../assets/legal/icon-zero-webhooks.png';
-import tenantBoundary from '../../../../assets/legal/icon-tenant-boundary.png';
 import './LegalDocument.css';
 
-const GUARANTEE_ICONS = {
-  'no-interception': noInterception,
-  'zero-webhooks': zeroWebhooks,
-  'tenant-boundary': tenantBoundary,
-};
+const ARTICLE_COUNT = LEGAL_PARTS.reduce((n, part) => n + part.sections.length, 0);
 
-/** Paragraph built from inline runs: string | { bold }. */
+/** Paragraph built from inline runs: string | { bold } | { link, to } (internal route). */
 function Rich({ runs }) {
-  return runs.map((run, i) => (typeof run === 'string' ? run : <strong key={i}>{run.bold}</strong>));
+  return runs.map((run, i) => {
+    if (typeof run === 'string') return run;
+    if (run.link) {
+      return (
+        <Link key={i} to={run.to} className="legal-section__link">
+          {run.link}
+        </Link>
+      );
+    }
+    return <strong key={i}>{run.bold}</strong>;
+  });
 }
 
 function DocumentIndex() {
@@ -39,7 +42,8 @@ function DocumentIndex() {
         <h2 id="legal-index-title" className="legal-index__title">
           {DOCUMENT_INDEX.title}
         </h2>
-        <span className="legal-index__count">{DOCUMENT_INDEX.count}</span>
+        {/* Figma shows "24 Articles"; the badge counts the sections actually on the page */}
+        <span className="legal-index__count">{ARTICLE_COUNT} Articles</span>
       </div>
       <label className="legal-index__search">
         <img src={searchIcon} alt="" width="17" height="17" />
@@ -90,33 +94,14 @@ function LegalSection({ section }) {
         </h3>
         <span className="legal-section__code">{section.code}</span>
       </header>
-      <p className="legal-section__body">
-        <Rich runs={section.body} />
-      </p>
+      {section.paragraphs.map((runs, i) => (
+        <p key={i} className="legal-section__body">
+          <Rich runs={runs} />
+        </p>
+      ))}
 
-      {section.callout && (
-        <div className="legal-callout">
-          <img src={calloutIcon} alt="" width="25" height="24" className="legal-callout__icon" />
-          <p>
-            <strong className="legal-callout__title">{section.callout.title}</strong>
-            <span className="legal-callout__body">{section.callout.body}</span>
-          </p>
-        </div>
-      )}
 
-      {section.guarantees && (
-        <ul className="legal-guarantees">
-          {section.guarantees.map((item) => (
-            <li key={item.title} className="legal-tile legal-guarantee">
-              <img src={GUARANTEE_ICONS[item.icon]} alt="" className="legal-guarantee__icon" />
-              <h4 className="legal-tile__title">{item.title}</h4>
-              <p className="legal-tile__body">{item.body}</p>
-            </li>
-          ))}
-        </ul>
-      )}
 
-      {section.footnote && <p className="legal-section__footnote">{section.footnote}</p>}
 
       {section.licenses && (
         <ul className="legal-licenses">
@@ -141,7 +126,7 @@ export default function LegalDocument() {
         </aside>
         <div className="legal-doc__content">
           {LEGAL_PARTS.map((part) => (
-            <section key={part.id} id={part.id} className="legal-part" aria-labelledby={`${part.id}-title`}>
+            <section key={part.id} id={part.id} className={`legal-part${part.flow ? ' legal-part--flow' : ''}`} aria-labelledby={`${part.id}-title`}>
               <header className="legal-card legal-part__intro">
                 <p className="legal-part__eyebrow">
                   <span className={`legal-part__pill legal-part__pill--${part.tone}`}>{part.pill}</span>

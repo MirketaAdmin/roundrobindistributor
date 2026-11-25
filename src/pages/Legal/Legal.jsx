@@ -11,7 +11,7 @@ export default function Legal() {
     <main id="main" className="legal-page">
       <SEO
         title="Privacy Policy and Terms & Conditions"
-        description="Round Robin Distributor privacy standards, zero-egress architecture guarantees, software licensing terms and subscription commitments for Salesforce."
+        description="How Mirketa handles information submitted through the Round Robin Distributor website, plus the Round Robin Distributor software terms and conditions."
         slug={ROUTES.legal}
       />
       <div className="legal-page__main" data-qa="legal-main">

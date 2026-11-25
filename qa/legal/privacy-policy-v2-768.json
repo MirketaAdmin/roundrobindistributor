@@ -1,0 +1,22 @@
+[
+  {
+    "name": "site-header",
+    "top": 0,
+    "height": 80
+  },
+  {
+    "name": "legal-main",
+    "top": 80,
+    "height": 4982
+  },
+  {
+    "name": "contact",
+    "top": 5062,
+    "height": 1286
+  },
+  {
+    "name": "site-footer",
+    "top": 6348,
+    "height": 697
+  }
+]

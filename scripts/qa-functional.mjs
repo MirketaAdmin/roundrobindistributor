@@ -351,7 +351,13 @@ ok('footer "Privacy Policy and T&C" opens /privacy-policy-and-terms', new URL(lp
 ok('Legal h1 + document title', (await lp.textContent('h1')).trim() === 'Legal Agreements & Compliance Center' && (await lp.title()).includes('Privacy Policy'));
 const legalOrder = await lp.$$eval('main > *', (s) => s.map((el) => el.dataset.qa || el.className.split(' ')[0]).join(','));
 ok('Legal section order matches Figma', legalOrder === 'legal-main,contact', legalOrder);
-ok('Legal: 2 parts, 7 sections as drawn', (await lp.$$('.legal-part')).length === 2 && (await lp.$$('.legal-section')).length === 7);
+ok('Legal: Part I = 8 supplied Privacy sections, Part II = 4 Terms sections', (await lp.$$('.legal-part')).length === 2
+  && (await lp.$$('#privacy-policy .legal-section')).length === 8 && (await lp.$$('#terms-and-conditions .legal-section')).length === 4);
+const privacyTitles = await lp.$$eval('#privacy-policy .legal-section__title', (h) => h.map((x) => x.textContent).join('|'));
+ok('Privacy sections in the supplied order', privacyTitles === '01. Information We Collect|02. The Site Versus the App|03. How We Use Information|04. Cookies and Similar Technologies|05. Sharing of Information|06. Data Security|07. Changes to This Policy|08. Contact Us', privacyTitles);
+ok('index badge counts the sections on the page (12 Articles)', (await lp.textContent('.legal-index__count')) === '12 Articles');
+ok('heading hierarchy: one h1, part titles h2, sections h3', (await lp.$$('h1')).length === 1 && (await lp.$$('.legal-part__title')).every(Boolean)
+  && (await lp.$$eval('.legal-part__title', (h) => h.every((x) => x.tagName === 'H2'))) && (await lp.$$eval('.legal-section__title', (h) => h.every((x) => x.tagName === 'H3'))));
 await lp.evaluate(async () => {
   for (let y = 0; y < document.body.scrollHeight; y += 600) { window.scrollTo(0, y); await new Promise((r) => setTimeout(r, 40)); }
   await Promise.all([...document.images].map((i) => (i.complete ? null : new Promise((r) => { i.onload = i.onerror = r; }))));
@@ -360,17 +366,21 @@ await lp.evaluate(async () => {
 const brokenL = await lp.$$eval('img', (imgs) => imgs.filter((i) => !(i.complete && i.naturalWidth > 0)).map((i) => i.getAttribute('src')));
 ok(`all Legal images load (${await lp.$$eval('img', (i) => i.length)})`, brokenL.length === 0, brokenL.join(', '));
 ok('Legal: no href="#" or empty hrefs', await lp.$$eval('a', (as) => as.every((x) => x.getAttribute('href') && x.getAttribute('href') !== '#')));
-ok('index: 3 linked entries, 9 pending (aria-disabled)', (await lp.$$('a.legal-index__link')).length === 3 && (await lp.$$('.legal-index__link[aria-disabled="true"]')).length === 9);
-await lp.click('a.legal-index__link >> text=02. The Absolute Zero-Egress Guarantee');
+ok('index: 8 linked entries, none pending', (await lp.$$('a.legal-index__link')).length === 8 && (await lp.$$('.legal-index__link[aria-disabled="true"]')).length === 0);
+await lp.click('a.legal-index__link >> text=02. The Site Versus the App');
 await lp.waitForTimeout(900);
 ok('index link scrolls to its section and sets the hash', new URL(lp.url()).hash === '#privacy-2'
   && Math.abs(await landed(lp, '#privacy-2')) <= 2);
-await lp.fill('.legal-index__input', 'gdpr');
-ok('index search filters entries ("gdpr" → 1)', (await lp.$$('.legal-index__list li')).length === 1);
+await lp.fill('.legal-index__input', 'cookies');
+ok('index search filters entries ("cookies" → 1)', (await lp.$$('.legal-index__list li')).length === 1);
 await lp.fill('.legal-index__input', 'zzz');
 ok('index search with no match shows empty state', await lp.isVisible('.legal-index__empty'));
 await lp.fill('.legal-index__input', '');
-ok('clearing index search restores 12 entries', (await lp.$$('.legal-index__list li')).length === 12);
+ok('clearing index search restores 8 entries', (await lp.$$('.legal-index__list li')).length === 8);
+await lp.click('.legal-section__link >> text=Contact page');
+await lp.waitForURL('**/contact-us');
+ok('"Contact page" link in section 08 opens /contact-us', new URL(lp.url()).pathname === '/contact-us');
+await lp.goto(BASE + '/privacy-policy-and-terms', { waitUntil: 'networkidle' });
 await lp.click('.legal-page .contact .inquiry__submit');
 ok('Legal contact form validates (6 required fields flagged)', (await lp.$$('.legal-page .contact [aria-invalid="true"]')).length === 6);
 await lp.click('.breadcrumb__home');
@@ -416,6 +426,68 @@ for (const w of [320, 390, 768, 1024, 1280, 1440]) {
   await sp.setViewportSize({ width: w, height: 900 });
   await sp.waitForTimeout(50);
   ok(`Support: no horizontal overflow @${w}`, !(await overflows(sp)));
+}
+
+// Thank You page + Web-to-Lead flow (Salesforce is intercepted: no real lead is created)
+const tp = await b.newPage({ viewport: { width: 1280, height: 900 } });
+tp.on('pageerror', (e) => errors.push('[thank-you] ' + e.message));
+await tp.goto(BASE + '/thank-you', { waitUntil: 'networkidle' });
+ok('Thank You h1', (await tp.textContent('h1')).replace(/\s+/g, ' ').trim() === 'Thank You! Your Request Has Been Received.');
+ok('Thank You is noindex, nofollow', (await tp.getAttribute('meta[name=robots]', 'content')) === 'noindex, nofollow');
+ok('Thank You section order matches Figma', (await tp.$$eval('main > section', (s) => s.map((el) => el.dataset.qa || el.className.split(' ')[0]).join(','))) === 'thanks-hero,insights');
+await tp.click('.thanks-hero__btn--home');
+await tp.waitForURL((u) => new URL(u).pathname === '/');
+ok('"Return to Homepage" opens /', new URL(tp.url()).pathname === '/');
+await tp.goto(BASE + '/thank-you/', { waitUntil: 'networkidle' });
+ok('trailing-slash /thank-you/ (Salesforce retURL) renders the page', await tp.isVisible('.thanks-hero'));
+await tp.click('.thanks-hero__btn--book');
+await tp.waitForURL('**/insights');
+ok('"Go to Insights" opens /insights', new URL(tp.url()).pathname === '/insights');
+
+const fp = await b.newPage({ viewport: { width: 1280, height: 900 } });
+let posts = 0;
+let failNext = false;
+await fp.route('https://webto.salesforce.com/**', async (route) => {
+  posts += 1;
+  if (failNext) return route.fulfill({ status: 500, contentType: 'text/html', body: '<h1>Salesforce error</h1>' });
+  const body = new URLSearchParams(route.request().postData() || '');
+  return route.fulfill({ status: 302, headers: { location: body.get('retURL') } });
+});
+await fp.goto(BASE + '/contact-us', { waitUntil: 'networkidle' });
+const retURL = await fp.getAttribute('form.inquiry [name=retURL]', 'value');
+ok('retURL points at this site\'s Thank You page', retURL === `${new URL(BASE).origin}/thank-you/`, retURL);
+for (const [field, value] of Object.entries({ first_name: 'Jane', last_name: 'Doe', email: 'jane.doe@company.com', mobile: '+1 555 000 0000', company: 'Acme', company_secondary: 'Acme' })) {
+  await fp.fill(`.inquiry [data-field="${field}"]`, value);
+}
+await fp.waitForSelector('.inquiry__captcha iframe', { timeout: 10000 }).catch(() => {});
+await fp.evaluate(() => { if (window.grecaptcha) window.grecaptcha.getResponse = () => 'test-token'; }); // simulate a ticked captcha
+await Promise.all([
+  fp.waitForURL('**/thank-you/', { timeout: 15000 }),
+  fp.click('.inquiry__submit', { clickCount: 2, delay: 20 }), // double click
+]);
+ok('valid submission posts to Salesforce and lands on /thank-you/', new URL(fp.url()).pathname === '/thank-you/' && (await fp.isVisible('.thanks-hero')));
+ok('double click sends exactly one POST', posts === 1, `posts=${posts}`);
+
+posts = 0;
+failNext = true;
+await fp.goto(BASE + '/contact-us', { waitUntil: 'networkidle' });
+for (const [field, value] of Object.entries({ first_name: 'Jane', last_name: 'Doe', email: 'jane.doe@company.com', mobile: '+1 555 000 0000', company: 'Acme', company_secondary: 'Acme' })) {
+  await fp.fill(`.inquiry [data-field="${field}"]`, value);
+}
+await fp.waitForSelector('.inquiry__captcha iframe', { timeout: 10000 }).catch(() => {});
+await fp.evaluate(() => { if (window.grecaptcha) window.grecaptcha.getResponse = () => 'test-token'; });
+await Promise.all([fp.waitForURL('https://webto.salesforce.com/**', { timeout: 15000 }), fp.click('.inquiry__submit')]);
+ok('failed Salesforce response does not reach the Thank You page', !fp.url().includes('/thank-you') && posts === 1);
+
+await fp.goto(BASE + '/contact-us', { waitUntil: 'networkidle' });
+posts = 0;
+await fp.click('.inquiry__submit');
+await fp.waitForTimeout(500);
+ok('invalid form never posts or redirects', posts === 0 && new URL(fp.url()).pathname === '/contact-us');
+for (const w of [320, 390, 768, 1024, 1440]) {
+  await tp.setViewportSize({ width: w, height: 900 });
+  await tp.goto(BASE + '/thank-you', { waitUntil: 'networkidle' });
+  ok(`Thank You: no horizontal overflow @${w}`, !(await overflows(tp)));
 }
 
 // 404

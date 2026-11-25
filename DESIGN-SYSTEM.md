@@ -856,7 +856,17 @@ The notice bolt, lock and send icons come from the shared inquiry form (lucide);
 
 **Line breaks:** as on the article page, every drawn break is encoded as `\n` in `src/data/legal.js` (`white-space: pre-line` at ≥1200px; normal reflow below).
 
-### 27.1 Behaviour and open items
+### 27.0 Content update (2026-11-25, client decision)
+
+- **Part I (Privacy Policy)** now carries the client-supplied policy: an intro paragraph and 8 sections (01 Information We Collect … 08 Contact Us). Each section uses the drawn section card (22/30 title + "SEC. n.0" code, 16/26 body). The supplied text wraps naturally, so it has no drawn line breaks or tracking. Paragraphs are 16px apart. "Contact page" in section 08 links to `/contact-us`.
+- The design's privacy copy has been removed: the zero-egress text, the three guarantee tiles, the callout and the footnote.
+- **Part II (Terms & Conditions)** is unchanged, as designed.
+- **Document Index:** lists the 8 privacy sections, all linked. The badge counts the sections on the page ("12 Articles", where the frame showed "24"). The group label "Privacy & Zero-Egress Stance" is kept as drawn.
+- **Hero dates** are kept as drawn (Effective January 1, 2026 / Last Updated March 2026). The supplied policy says "Last updated: [insert date]", so the real date is pending.
+- **Section 04 (cookies)** describes a cookie banner, consent-gated Google Analytics and a footer "Cookie settings" link. None of these exist yet (client chose: publish the text, flag the gap).
+- The glyph assets for the removed tiles and callout remain in `src/assets/legal/` but are unused.
+
+
 
 - **Index:** entries 01, 02 and 04 jump to their sections (smooth scroll, URL hash updated). The other nine have no section in the design and render `aria-disabled` until their text is supplied. The search box filters the index entries; "No matching articles." is shown when nothing matches.
 - **Coverage:** the design shows Privacy sections 01, 02 and 04 only (no 03, 05–12), and Terms sections T-1 to T-4. The badge reads "24 Articles". The missing text is pending from the client.
@@ -920,3 +930,32 @@ In `src/assets/support/`, re-created with `python -I scripts/extract-support-ass
 | Disabled destinations (`aria-disabled`, URL pending) | Designed look kept, no hover reaction, `not-allowed` cursor, "Link not configured yet" tooltip |
 
 **Motion policy:** no entrance, scroll-triggered, text or background animation. `prefers-reduced-motion: reduce` turns off all transitions and smooth scrolling, and JS scrolling (`scrollToId`, logo-to-top) jumps instantly.
+
+## 30. Thank You page (`/thank-you`)
+
+**Source:** the Thank You PNG, 1280×1897. Header and Footer are shared. `noindex, nofollow`.
+
+| Section | y range | Height | Content |
+|---|---|---|---|
+| Hero | 101–709 | 609 | Surface fading to white, plus a soft `#e7f2fa` elliptical glow behind the badge. Badge: 80px halo (green 15%) + 56px green check disc + 28px blue "verified" disc (both discs cropped from the PNG, clipped round). Green-dot 13/700 tracked eyebrow in Primary; 56/64 800 headline (tracking −1.9px); 18/28 `#5b6b7a` body; 48px buttons, r10: "Return to Homepage" (Primary, 211px, home glyph) and "Go to Insights" (white, 168px, book glyph), gap 18 |
+| Insights | 710–1470 | 761 | The Home Insights section, reused unchanged (pixel-identical to Home) |
+| Footer (shared) | 1471–1896 | 426 | — |
+
+### 30.1 Form flow
+
+- Every inquiry form posts to Salesforce Web-to-Lead with `retURL = <current origin>/thank-you/`, so production (https), staging and local each return to their own Thank You page.
+- Salesforce redirects there only after it accepts the post. Invalid fields or an unticked reCAPTCHA block the post on the page.
+- After a valid submit the button is `aria-busy` and further submits are ignored (no duplicate leads). It resets if the browser restores the page from the back/forward cache.
+- Direct visits and refreshes simply render the page; nothing is re-submitted.
+- **Hosting note:** the server must serve `index.html` for `/thank-you/` (SPA fallback), like every other route.
+
+### 30.2 Assets
+
+In `src/assets/thank-you/`, re-created with `python -I scripts/extract-thank-you-assets.py <thank-you.png>`: `badge-check.webp` (56px), `badge-verified.webp` (28px), and the `icon-home.png` / `icon-book.png` button glyphs (alpha recovered).
+
+### 30.3 Responsive fallbacks (assumptions — no Thank You tablet/mobile frames)
+
+| Breakpoint | Fallback |
+|---|---|
+| < 1024 | Body line break released |
+| < 640 | Headline 36/44; body 16/26; buttons full width, stacked |

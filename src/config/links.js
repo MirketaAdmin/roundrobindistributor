@@ -19,6 +19,7 @@ export const ROUTES = {
   article: '/insights/:slug',
   legal: '/privacy-policy-and-terms',
   support: '/support',
+  thankYou: '/thank-you',
 };
 
 /* Article detail URL for a slug (src/data/article.js). */
@@ -43,7 +44,9 @@ export const VIDEO_LINKS = {
 export const WEB_TO_LEAD = {
   action: 'https://webto.salesforce.com/servlet/servlet.WebToLead?encoding=UTF-8&orgId=00Dd0000000hivg',
   oid: '00Dd0000000hivg',
-  retURL: 'http://roundrobindistributor.com/thank-you/',
+  // Fallback only: the form sends `${window.location.origin}/thank-you/` so every deployment
+  // (production https, staging, local) returns to its own Thank You page.
+  retURL: 'https://roundrobindistributor.com/thank-you/',
   leadSource: 'Web',
   captchaSettings: { keyname: 'roundrobindistributor', fallback: 'true', orgId: '00Dd0000000hivg', ts: '' },
   recaptchaSiteKey: '6Lc-Ei4uAAAAAI_0LQW8LNmWOrHuiiEpUOo6KCZ4',

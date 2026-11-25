@@ -7,6 +7,7 @@ import Insights from './pages/Insights/Insights.jsx';
 import Article from './pages/Article/Article.jsx';
 import Legal from './pages/Legal/Legal.jsx';
 import Support from './pages/Support/Support.jsx';
+import ThankYou from './pages/ThankYou/ThankYou.jsx';
 import NotFound from './pages/NotFound/NotFound.jsx';
 import { ROUTES } from './config/links.js';
 
@@ -21,6 +22,7 @@ export default function App() {
         <Route path={ROUTES.article} element={<Article />} />
         <Route path={ROUTES.legal} element={<Legal />} />
         <Route path={ROUTES.support} element={<Support />} />
+        <Route path={ROUTES.thankYou} element={<ThankYou />} />
         <Route path="*" element={<NotFound />} />
       </Route>
     </Routes>

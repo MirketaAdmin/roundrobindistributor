@@ -1,7 +1,7 @@
 import { useEffect, useId, useRef, useState } from 'react';
 import Button from '../Button/Button.jsx';
 import Icon from '../Icon/Icon.jsx';
-import { WEB_TO_LEAD } from '../../config/links.js';
+import { ROUTES, WEB_TO_LEAD } from '../../config/links.js';
 import { CONTACT } from '../../data/home.js';
 import { loadRecaptcha } from '../../utils/recaptcha.js';
 import { validateFields } from '../../utils/validation.js';
@@ -9,6 +9,8 @@ import './InquiryForm.css';
 
 const emptyValues = (fields) => Object.fromEntries([...fields, CONTACT.message].map((f) => [f.name, '']));
 const CAPTCHA_MESSAGE = 'Please confirm you are not a robot.';
+/* Salesforce redirects here after a successful post (trailing slash as in the supplied snippet). */
+const returnUrl = () => (typeof window === 'undefined' ? WEB_TO_LEAD.retURL : `${window.location.origin}${ROUTES.thankYou}/`);
 
 /**
  * Inquiry form (Home, About, Contact Us, Legal, Support, article sidebar), styled as in the Figma frames.
@@ -24,6 +26,14 @@ export default function InquiryForm({ fields = CONTACT.fields, className = '' })
   const [values, setValues] = useState(() => emptyValues(fields));
   const [errors, setErrors] = useState({});
   const [captchaError, setCaptchaError] = useState('');
+  const [submitting, setSubmitting] = useState(false);
+
+  // Back/forward cache: if the user returns from Salesforce, make the form usable again.
+  useEffect(() => {
+    const onShow = (event) => event.persisted && setSubmitting(false);
+    window.addEventListener('pageshow', onShow);
+    return () => window.removeEventListener('pageshow', onShow);
+  }, []);
 
   const fieldId = (name) => `${uid}-${name}`;
   const captchaResponse = () =>
@@ -71,6 +81,10 @@ export default function InquiryForm({ fields = CONTACT.fields, className = '' })
 
   // Valid → let the browser submit the HTML form to Salesforce; invalid → stay and show errors.
   const onSubmit = (event) => {
+    if (submitting) {
+      event.preventDefault(); // already posting — avoid a duplicate lead
+      return;
+    }
     const nextErrors = validateFields(fields, values);
     setErrors(nextErrors);
     const firstInvalid = Object.keys(nextErrors)[0];
@@ -80,7 +94,9 @@ export default function InquiryForm({ fields = CONTACT.fields, className = '' })
     if (firstInvalid || captchaMissing) {
       event.preventDefault();
       if (firstInvalid) document.getElementById(fieldId(firstInvalid))?.focus();
+      return;
     }
+    setSubmitting(true); // valid: the browser now posts to Salesforce, which redirects to the Thank You page
   };
 
   return (
@@ -94,7 +110,7 @@ export default function InquiryForm({ fields = CONTACT.fields, className = '' })
     >
       <input ref={captchaSettingsRef} type="hidden" name="captcha_settings" />
       <input type="hidden" name="oid" value={WEB_TO_LEAD.oid} />
-      <input type="hidden" name="retURL" value={WEB_TO_LEAD.retURL} />
+      <input type="hidden" name="retURL" value={returnUrl()} />
       <input type="hidden" name="lead_source" value={WEB_TO_LEAD.leadSource} />
 
       <div className="inquiry__notice" id={`${uid}-notice`}>
@@ -175,6 +191,8 @@ export default function InquiryForm({ fields = CONTACT.fields, className = '' })
           type="submit"
           size="lg"
           className="inquiry__submit"
+          aria-disabled={submitting ? 'true' : undefined}
+          aria-busy={submitting || undefined}
           iconEnd={<Icon name="SendHorizontal" className="inquiry__submit-icon" />}
         >
           {CONTACT.submit}

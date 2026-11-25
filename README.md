@@ -21,6 +21,7 @@ React 19 + Vite 8 + React Router 7. Plain CSS with design tokens. The design ref
 | `python -I scripts/extract-article-assets.py <article.png>` | Re-creates the article images and glyphs (`src/assets/article/`) |
 | `python -I scripts/extract-legal-assets.py <legal.png>` | Re-creates the Privacy Policy & T&C glyphs (`src/assets/legal/`) |
 | `python -I scripts/extract-support-assets.py <support.png>` | Re-creates the Support glyphs (`src/assets/support/`) |
+| `python -I scripts/extract-thank-you-assets.py <thank-you.png>` | Re-creates the Thank You badge discs and button glyphs (`src/assets/thank-you/`) |
 
 ## Structure
 
@@ -38,6 +39,7 @@ src/
     Legal/                   `/privacy-policy-and-terms` — LegalHero (meta strip, trust cards), LegalDocument
                              (searchable Document Index + Privacy / Terms cards); shared ContactSection
     Support/                 `/support` — SupportHero (category cards), SupportTopics (accordions); shared ContactSection
+    ThankYou/                `/thank-you` — Web-to-Lead retURL; ThankYouHero + Home Insights section (noindex)
     NotFound/                404 (noindex)
   components/                shared UI, used by more than one section or page
     Header, Footer, Brand    site chrome and logo lockup
@@ -77,7 +79,7 @@ No feature in the design needs a database: the site is static marketing content.
 
 ### Inquiry form → Salesforce Web-to-Lead
 
-Every inquiry form is a plain HTML `<form method="POST">` that posts straight to Salesforce Web-to-Lead (settings in `WEB_TO_LEAD`, `src/config/links.js`; field names in `CONTACT.fields`, `src/data/home.js`). Salesforce redirects to `retURL` after a successful post.
+Every inquiry form is a plain HTML `<form method="POST">` that posts straight to Salesforce Web-to-Lead (settings in `WEB_TO_LEAD`, `src/config/links.js`; field names in `CONTACT.fields`, `src/data/home.js`). Salesforce redirects to `retURL` (`<current origin>/thank-you/`, the Thank You page) after a successful post; a valid submit locks the button so a double click cannot create two leads.
 
 | Form field | Web-to-Lead field |
 |---|---|

@@ -1,0 +1,22 @@
+[
+  {
+    "name": "site-header",
+    "top": 0,
+    "height": 80
+  },
+  {
+    "name": "thanks-hero",
+    "top": 80,
+    "height": 645
+  },
+  {
+    "name": "insights",
+    "top": 725,
+    "height": 1378
+  },
+  {
+    "name": "site-footer",
+    "top": 2103,
+    "height": 697
+  }
+]

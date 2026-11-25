@@ -5,7 +5,7 @@ import { chromium } from 'playwright';
   responsive widths). Start the dev server first, then: npm run qa:audit [baseUrl]
 */
 const BASE = process.argv[2] || 'http://localhost:5191';
-const ROUTES = ['/', '/about-us', '/contact-us', '/insights', '/insights/lead-assignment-rules-vs-round-robin-distributor', '/privacy-policy-and-terms', '/support'];
+const ROUTES = ['/', '/about-us', '/contact-us', '/insights', '/insights/lead-assignment-rules-vs-round-robin-distributor', '/privacy-policy-and-terms', '/support', '/thank-you'];
 const WIDTHS = [320, 375, 390, 430, 768, 1024, 1280, 1440, 1920];
 const b = await chromium.launch();
 const errors = [];
@@ -219,7 +219,7 @@ for (const w of WIDTHS) {
     });
     if (res.length) issues.push(`${r}: ${res.join('; ')}`);
   }
-  ok(`@${w}px: 7 pages — no overflow, nothing past the viewport, header height correct`, issues.length === 0, issues.join(' || '));
+  ok(`@${w}px: all pages — no overflow, nothing past the viewport, header height correct`, issues.length === 0, issues.join(' || '));
 
   if (w < 1024) {
     await rp.goto(BASE + '/', { waitUntil: 'networkidle' });
